@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
+import { FaChevronDown } from 'react-icons/fa'
 import logo from '../assets/logo.png'
+import mainL from '../assets/main-l.png'
 import './Navbar.css'
 
 const navLinks = [
@@ -11,12 +13,18 @@ const navLinks = [
   { path: '/meditation-breathwork', label: 'Meditation' },
   { path: '/chakra-reading', label: 'Chakra Reading' },
   { path: '/retreats', label: 'Retreats' },
-  { path: '/about', label: 'About' },
 ]
+
+const books = Array.from({ length: 9 }, (_, i) => ({
+  label: `Book ${i + 1}`,
+  path: `/books/${i + 1}`,
+}))
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [booksOpen, setBooksOpen] = useState(false)
+  const dropdownRef = useRef(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -27,57 +35,30 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsOpen(false)
+    setBooksOpen(false)
   }, [location])
 
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setBooksOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+  }, [])
+
   return (
+    <>
+    <div className={`l-decoration ${scrolled ? 'scrolled' : ''}`}>
+      <div className="l-decoration-container">
+        <img src={mainL} alt="" draggable="false" />
+      </div>
+    </div>
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
-          <div className="brand-logo-wrap">
-            <img src={logo} alt="My LifeChoices" className="navbar-logo" />
-            <div className="brand-l-mark">
-              {/* CSS-drawn L shape with cosmic glow */}
-              <svg viewBox="0 0 40 40" className="l-shape-svg">
-                <defs>
-                  <linearGradient id="lGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#7b2ff2" />
-                    <stop offset="100%" stopColor="#ec4899" />
-                  </linearGradient>
-                  <filter id="lGlow">
-                    <feGaussianBlur stdDeviation="2" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                </defs>
-                <path
-                  d="M10 4 L10 30 L32 30"
-                  fill="none"
-                  stroke="url(#lGrad)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  filter="url(#lGlow)"
-                />
-                {/* Cosmic sparkle dots */}
-                <circle cx="10" cy="4" r="1.5" fill="#a855f7" opacity="0.9">
-                  <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="32" cy="30" r="1.5" fill="#ec4899" opacity="0.9">
-                  <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="10" cy="30" r="1" fill="#d4a853" opacity="0.7">
-                  <animate attributeName="opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" />
-                </circle>
-                {/* Small star at corner */}
-                <path d="M20 16 L21 18 L23 18 L21.5 19.5 L22 22 L20 20.5 L18 22 L18.5 19.5 L17 18 L19 18 Z"
-                  fill="white" opacity="0.4">
-                  <animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite" />
-                </path>
-              </svg>
-            </div>
-          </div>
+          <img src={logo} alt="My LifeChoices" className="navbar-logo" />
         </Link>
 
         <button
@@ -99,8 +80,48 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+
+          {/* Books dropdown */}
+          <li className="nav-has-dropdown" ref={dropdownRef}>
+            <button
+              className={`nav-dropdown-toggle ${booksOpen ? 'open' : ''}`}
+              onClick={() => setBooksOpen(v => !v)}
+            >
+              Books <FaChevronDown className="dropdown-chevron" />
+            </button>
+            {booksOpen && (
+              <ul className="nav-dropdown">
+                {books.map(({ label, path }) => (
+                  <li key={path}>
+                    <Link to={path}>{label}</Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Gallery */}
+          <li>
+            <Link
+              to="/gallery"
+              className={location.pathname === '/gallery' ? 'active' : ''}
+            >
+              Gallery
+            </Link>
+          </li>
+
+          {/* About */}
+          <li>
+            <Link
+              to="/about"
+              className={location.pathname === '/about' ? 'active' : ''}
+            >
+              About
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
+    </>
   )
 }

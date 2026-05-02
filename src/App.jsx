@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BookSession from './components/BookSession'
+import ContactUs from './components/ContactUs'
 import Home from './pages/Home'
 import Numerology from './pages/Numerology'
 import BioGeometry from './pages/BioGeometry'
@@ -10,6 +11,7 @@ import MeditationBreathwork from './pages/MeditationBreathwork'
 import ChakraReading from './pages/ChakraReading'
 import Retreats from './pages/Retreats'
 import About from './pages/About'
+import ComingSoon from './pages/ComingSoon'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -34,9 +36,12 @@ export default function App() {
           <Route path="/chakra-reading" element={<ChakraReading />} />
           <Route path="/retreats" element={<Retreats />} />
           <Route path="/about" element={<About />} />
+          <Route path="/books/:bookId" element={<ComingSoon />} />
+          <Route path="/gallery" element={<ComingSoon title="Gallery" />} />
         </Routes>
       </main>
       <Footer />
+      <ContactUs />
       <BookSession />
     </>
   )
