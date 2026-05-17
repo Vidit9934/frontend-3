@@ -115,6 +115,12 @@
   font-size: 0.9rem;
 }
 
+/* Date input fix — dark background hides native calendar icon without this */
+.form-group input[type="date"] {
+  color-scheme: dark;
+  cursor: pointer;
+}
+
 @media (max-width: 480px) {
   .contact-fab {
     bottom: 112px;

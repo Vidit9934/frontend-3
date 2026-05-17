@@ -22,8 +22,8 @@ export default function ComingSoon({ title }) {
 
         <div className="cs-divider" />
 
-        <Link to="/" className="cs-back">
-          <FaArrowLeft /> Back to Home
+        <Link to={bookId ? '/books' : '/'} className="cs-back">
+          <FaArrowLeft /> {bookId ? 'Back to Books' : 'Back to Home'}
         </Link>
       </div>
     </div>

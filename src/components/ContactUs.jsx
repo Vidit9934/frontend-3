@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaWhatsapp, FaTimes, FaCommentDots } from 'react-icons/fa'
 import './ContactUs.css'
 
@@ -7,20 +7,26 @@ const WHATSAPP_NUMBER = '6589220656'
 
 export default function ContactUs() {
   const [isOpen, setIsOpen] = useState(false)
-  const [form, setForm] = useState({ name: '', phone: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', dob: '' })
   const [sent, setSent] = useState(false)
+
+  useEffect(() => {
+    const handler = () => setIsOpen(true)
+    window.addEventListener('open-contact', handler)
+    return () => window.removeEventListener('open-contact', handler)
+  }, [])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const text = `*New Enquiry — My LifeChoices*\n\n👤 Name: ${form.name}\n📞 Phone: ${form.phone}\n💬 Message: ${form.message}`
+    const text = `*New Enquiry — My LifeChoices*\n\n👤 Name: ${form.name}\n📧 Email: ${form.email}\n🎂 Date of Birth: ${form.dob}`
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank')
     setSent(true)
     setTimeout(() => {
       setSent(false)
       setIsOpen(false)
-      setForm({ name: '', phone: '', message: '' })
+      setForm({ name: '', email: '', dob: '' })
     }, 2000)
   }
 
@@ -66,25 +72,24 @@ export default function ContactUs() {
                   </div>
 
                   <div className="form-group">
-                    <label>Phone / WhatsApp</label>
+                    <label>Email ID</label>
                     <input
-                      type="tel"
-                      name="phone"
+                      type="email"
+                      name="email"
                       required
-                      placeholder="+91 XXXXX XXXXX"
-                      value={form.phone}
+                      placeholder="your@email.com"
+                      value={form.email}
                       onChange={handleChange}
                     />
                   </div>
 
                   <div className="form-group">
-                    <label>Message</label>
-                    <textarea
-                      name="message"
+                    <label>Date of Birth</label>
+                    <input
+                      type="date"
+                      name="dob"
                       required
-                      rows={3}
-                      placeholder="How can we help you?"
-                      value={form.message}
+                      value={form.dob}
                       onChange={handleChange}
                     />
                   </div>

@@ -81,54 +81,10 @@ const PLANETS = [
   },
 ]
 
-const whatItIs = [
-  'Energy-balancing science using specific shapes and design principles',
-  'Helps harmonize homes, offices, and personal spaces',
-  'Aims to improve wellbeing through balanced environments',
-  'Focuses on subtle energy correction and alignment',
-  'Applied to living, working, and commercial spaces',
-]
-
-const howItHelps = [
-  'Creates a calmer and more peaceful environment',
-  'Supports better focus and mental clarity',
-  'Reduces the feeling of heaviness or discomfort in a space',
-  'Encourages grounding and emotional balance',
-  'Makes surroundings feel more supportive and harmonious',
-]
-
-const whereApplied = [
-  'Homes', 'Bedrooms', 'Offices', 'Workspaces',
-  'Restaurants', 'Business premises', 'Personal environments needing balance',
-]
-
-const commonProblems = [
-  'Home stress', 'Restlessness in the house', 'Poor focus while working',
-  'Low productivity', 'Emotional heaviness in a room',
-  'Feeling drained in certain spaces', 'Energy imbalance',
-  'Difficulty relaxing at home', 'Tension in shared spaces',
-]
-
-const serviceIncludes = [
-  'Assessment of your space and its energetic feel',
-  'Placement or use of specific balancing shapes',
-  'Personalized solutions based on your needs',
-  'Practical recommendations for harmony and wellbeing',
-  'Bespoke guidance for each individual or property',
-]
-
-const exampleResult = [
-  'Client felt unable to relax or focus at home',
-  'Shapes were placed and subtle adjustments made',
-  'Within days, client felt more grounded',
-  'Visitors also noticed the space felt better',
-]
-
-const aboutPractitioner = [
-  "Trained in BioGeometry under the founder's lineage",
-  'Holds advanced certification',
-  'Combines BioGeometry with numerology and yogic practices',
-  'Uses practical methods for real-world results',
+const painPoints = [
+  'Do you often feel mentally exhausted even after a full night\'s sleep?',
+  'Struggle to focus at work despite your best efforts?',
+  'Notice tension and miscommunication at home that seems to come out of nowhere?',
 ]
 
 const faqItems = [
@@ -292,80 +248,84 @@ export default function BioGeometry() {
         </div>
       </section>
 
-      {/* What BioGeometry Is */}
-      <section className="service-intro">
+      {/* Pain points — 3 horizontal cards */}
+      <section style={{ padding: '80px 0 0' }}>
         <div className="container">
-          <div className="intro-content">
-            <h2>What BioGeometry <span className="gold-text">Is</span></h2>
-            <ul className="pointer-list">
-              {whatItIs.map((item, i) => <li key={i}>{item}</li>)}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Helps + Where Applied */}
-      <section className="service-highlights">
-        <div className="container">
-          <div className="twin-cards">
-            <div className="twin-card">
-              <h3>How It <span className="gradient-text">Helps You</span></h3>
-              <ul className="pointer-list">
-                {howItHelps.map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-            </div>
-            <div className="twin-card">
-              <h3>Where It Can Be <span className="gold-text">Applied</span></h3>
-              <div className="chips-wrap">
-                {whereApplied.map((item, i) => <span key={i} className="chip">{item}</span>)}
+          <h2 className="section-title">Feeling Drained, Unfocused, or <span className="gradient-text">On-Edge</span> at Home or Work?</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '48px' }}>
+            {painPoints.map((point, i) => (
+              <div key={i} className="card" style={{ padding: '32px 28px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                <span style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  color: 'var(--accent-gold)',
+                  border: '1px solid rgba(212,168,83,0.3)',
+                  borderRadius: '6px',
+                  padding: '4px 8px',
+                  flexShrink: 0,
+                  marginTop: 2,
+                }}>
+                  {`0${i + 1}`}
+                </span>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.98rem' }}>{point}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Common Problems */}
-      <section className="case-studies">
+      {/* Main content */}
+      <section style={{ padding: '80px 0 100px', background: 'var(--bg-secondary)', marginTop: '80px' }}>
         <div className="container">
-          <h2 className="section-title">Common Problems It Can <span className="gold-text">Support</span></h2>
-          <div className="chips-wrap" style={{ justifyContent: 'center', marginTop: 24 }}>
-            {commonProblems.map((item, i) => <span key={i} className="chip">{item}</span>)}
-          </div>
-        </div>
-      </section>
-
-      {/* Service Includes + Example Result — side by side */}
-      <section className="case-studies">
-        <div className="container">
-          <div className="twin-cards">
-            <div className="twin-card">
-              <h3>What the Service <span className="gradient-text">Includes</span></h3>
-              <ul className="pointer-list">
-                {serviceIncludes.map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-            </div>
-            <div className="twin-card">
-              <h3>Example <span className="gold-text">Result</span></h3>
-              <ul className="pointer-list">
-                {exampleResult.map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About the Practitioner */}
-      <section className="case-studies">
-        <div className="container">
-          <h2 className="section-title">About the <span className="gradient-text">Practitioner</span></h2>
-          <div className="practitioner-card">
-            {/* TODO: replace avatar with actual photo — src="/your-photo.jpg" */}
-            <div className="practitioner-avatar">S</div>
-            <div className="practitioner-info">
-              <h3>Sharan</h3>
-              <ul className="pointer-list">
-                {aboutPractitioner.map((item, i) => <li key={i}>{item}</li>)}
-              </ul>
+          <div style={{ maxWidth: 800, margin: '0 auto' }}>
+            <p className="section-label" style={{ textAlign: 'left' }}>BioGeometry</p>
+            <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: 40, fontWeight: 700, textAlign: 'left' }}>
+              Your Environment Shapes <span className="gradient-text">How You Feel</span>
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                You're not alone. Many high-functioning professionals and homeowners face these exact
+                frustrations — and often, the real cause isn't you, it's your environment.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                BioGeometry offers a simple, science-based way to restore balance to the spaces you
+                live and work in — without needing to overhaul your lifestyle. It works by using
+                precise geometric shapes to harmonize the subtle energy fields in your environment,
+                helping your body return to its natural state of calm, clarity, and vitality.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                Originally developed by Dr. Ibrahim Karim, BioGeometry has been successfully applied
+                in homes, offices, schools, and even entire towns. These shapes interact with the
+                electromagnetic and geopathic stresses around us — like Wi-Fi, 5G, and underground
+                disturbances — to neutralize their effects on your nervous system.{' '}
+                <a
+                  href="https://www.biogeometry.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--accent-purple-light)', textDecoration: 'underline' }}
+                >
+                  Learn more on Dr. Karim's website.
+                </a>
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                Most clients report noticeable improvements within days — better sleep, clearer
+                thinking, fewer arguments at home, more focus at work, and even reduced physical
+                tension. It's subtle, non-invasive, and blends seamlessly into any lifestyle.
+              </p>
+              <blockquote style={{
+                borderLeft: '3px solid var(--accent-gold)',
+                paddingLeft: 24,
+                margin: '8px 0',
+                color: 'var(--text-primary)',
+                fontSize: '1.1rem',
+                fontWeight: 500,
+                fontStyle: 'italic',
+                lineHeight: 1.7,
+              }}>
+                BioGeometry doesn't ask you to change who you are. It simply changes the energetic
+                environment around you, so you can be more of your best self.
+              </blockquote>
             </div>
           </div>
         </div>

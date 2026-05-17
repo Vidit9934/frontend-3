@@ -1,23 +1,18 @@
-import { TbEye, TbFlame, TbDroplet, TbSun, TbHeart, TbMessage, TbBulb, TbCrown } from 'react-icons/tb'
+import { TbEye, TbBrain, TbFeather, TbBolt } from 'react-icons/tb'
 import './ServicePage.css'
 
-const chakras = [
-  { icon: <TbFlame />, name: 'Root', color: '#e74c3c', desc: 'Stability, security, and grounding.' },
-  { icon: <TbDroplet />, name: 'Sacral', color: '#e67e22', desc: 'Creativity, emotions, and pleasure.' },
-  { icon: <TbSun />, name: 'Solar Plexus', color: '#f1c40f', desc: 'Confidence, willpower, and identity.' },
-  { icon: <TbHeart />, name: 'Heart', color: '#2ecc71', desc: 'Love, compassion, and connection.' },
-  { icon: <TbMessage />, name: 'Throat', color: '#3498db', desc: 'Communication and authentic expression.' },
-  { icon: <TbBulb />, name: 'Third Eye', color: '#8e44ad', desc: 'Intuition, insight, and clarity.' },
-  { icon: <TbCrown />, name: 'Crown', color: '#9b59b6', desc: 'Spiritual connection and higher purpose.' },
+const experiencePoints = [
+  { num: '01', text: 'A guided journey through all seven major Chakras, from Muladhara (root) to Sahasrara (crown)' },
+  { num: '02', text: 'Insights into how each Chakra influences your emotions, behavior, and decision-making' },
+  { num: '03', text: 'Discovery of where emotional patterns and physical tension live in your body' },
+  { num: '04', text: 'Alignment strategies to bring your energy into balance using Yogic, meditative, and numerical wisdom' },
+  { num: '05', text: 'Integration of my custom numerology grid with Chakra archetypes for a more personalized roadmap' },
 ]
 
-const outcomes = [
-  'Greater emotional clarity and self-awareness',
-  'Understanding of recurring behavioral patterns',
-  'Identification of energy blockages affecting your life',
-  'Practical strategies for chakra alignment',
-  'Integration of numerology grids with chakra archetypes',
-  'A deeper sense of inner peace and personal power',
+const clientLeaves = [
+  { icon: <TbBrain />, title: 'Greater Emotional Clarity', desc: 'Understand the emotional patterns that have been running beneath the surface.' },
+  { icon: <TbFeather />, title: 'A Deeper Sense of Inner Peace', desc: 'Leave each session with a tangible sense of calm and inner settledness.' },
+  { icon: <TbBolt />, title: 'Practical Awareness of Personal Power', desc: 'Know how to activate your strengths and direct your energy in daily life.' },
 ]
 
 export default function ChakraReading() {
@@ -37,58 +32,127 @@ export default function ChakraReading() {
         </div>
       </section>
 
-      <section className="service-intro">
+      {/* Intro */}
+      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
         <div className="container">
-          <div className="intro-content">
-            <h2>Ancient Tantra Meets <span className="gold-text">Modern Insight</span></h2>
-            <p>
-              A chakra reading is a guided journey through your seven energy centers — exploring
-              how each influences your emotions, behavior, and life decisions. Combined with
-              numerology profiling, this creates a deeply personalized map of your inner landscape.
-            </p>
+          <div style={{ maxWidth: 800, margin: '0 auto' }}>
+            <p className="section-label" style={{ textAlign: 'left' }}>Chakra Reading</p>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: 40, fontWeight: 700, textAlign: 'left', lineHeight: 1.3 }}>
+              What If Your Chakras Held the Blueprint to Your Emotional Strength,{' '}
+              <span className="gradient-text">Inner Balance, and Personal Power?</span>
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                As a chakra guide and initiated yogi, I combine the ancient wisdom of Indian tantra
+                with a modern, structured approach to decode the energy centers that shape your life
+                from within.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                This isn't just symbolic theory. It's a practical exploration of how your body,
+                emotions, and spirit are energetically wired — and how understanding that wiring
+                can bring clarity, calm, and strength into your daily life.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                Using a unique method that overlays numerology onto the Chakra system, I offer
+                insight into where your power is blocked, where it flows naturally, and how to
+                realign with your core self.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="service-highlights" style={{ background: 'transparent' }}>
+      {/* What You'll Experience */}
+      <section style={{ padding: '100px 0' }}>
         <div className="container">
-          <h2 className="section-title">The Seven <span className="gradient-text">Chakras</span></h2>
-          <p className="section-subtitle">Each energy center holds a key to understanding yourself</p>
-          <div className="chakras-row">
-            {chakras.map((c, i) => (
-              <div key={i} className="chakra-item card" style={{ borderColor: `${c.color}33` }}>
-                <div className="chakra-icon" style={{ color: c.color }}>{c.icon}</div>
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
+          <h2 className="section-title">What You'll <span className="gradient-text">Experience</span></h2>
+          <p className="section-subtitle">A structured, deeply personal journey through your energy body</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '48px' }}>
+            {experiencePoints.map((point, i) => (
+              <div key={i} className="card" style={{ padding: '32px 28px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+                <span style={{
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  color: 'var(--accent-gold)',
+                  border: '1px solid rgba(212,168,83,0.3)',
+                  borderRadius: '6px',
+                  padding: '4px 8px',
+                  flexShrink: 0,
+                  marginTop: 2,
+                }}>
+                  {point.num}
+                </span>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '0.98rem' }}>{point.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="case-studies">
+      {/* Background */}
+      <section style={{ padding: '80px 0', background: 'var(--bg-secondary)' }}>
         <div className="container">
-          <h2 className="section-title">What You'll <span className="gold-text">Experience</span></h2>
-          <div className="outcomes-grid">
-            {outcomes.map((o, i) => (
-              <div key={i} className="outcome-item card">
-                <span className="outcome-check">&#10003;</span>
-                <p>{o}</p>
+          <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+              This work is rooted in over 1,000 hours of certified Hatha-Vinyasa Yoga training in
+              the Himalayas, and decades of dedicated pilgrimages to sacred temples across India and
+              Kathmandu — including the transformative experience of attending the Maha Kumbh, a
+              powerful convergence of spiritual energies. It draws from a living lineage of ancient
+              traditions, blending disciplined spiritual practice with research into ancient sciences
+              and insights into energetic healing.
+            </p>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+              Whether you're navigating emotional stress, repeating life patterns, or seeking a
+              deeper connection to self, this reading reveals what's already within you — and how
+              to bring it into harmony.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Clients Leave With */}
+      <section style={{ padding: '100px 0' }}>
+        <div className="container">
+          <h2 className="section-title">Clients Leave <span className="gold-text">With</span></h2>
+          <p className="section-subtitle">Tangible shifts that stay with you long after the session</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', marginTop: '48px' }}>
+            {clientLeaves.map((item, i) => (
+              <div key={i} className="card" style={{ padding: '36px 28px', textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '1.8rem',
+                  color: 'var(--accent-purple-light)',
+                  marginBottom: '16px',
+                  display: 'inline-flex',
+                  padding: '14px',
+                  background: 'rgba(123,47,242,0.08)',
+                  borderRadius: '50%',
+                  border: '1px solid rgba(123,47,242,0.15)',
+                }}>
+                  {item.icon}
+                </div>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: 10, color: 'var(--text-primary)' }}>{item.title}</h3>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7 }}>{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="service-intro">
+      {/* Closing */}
+      <section style={{ padding: '60px 0 80px', background: 'var(--bg-secondary)' }}>
         <div className="container">
           <div className="intro-content">
-            <h2>Sharan's <span className="gradient-text">Background</span></h2>
-            <p>
-              With over 1,000 hours of certified Hatha-Vinyasa Yoga training in the Himalayas
-              and participation in the Maha Kumbh spiritual gathering, Sharan brings deep
-              traditional knowledge to every reading — grounded in practice, not performance.
+            <p style={{ fontStyle: 'italic', color: 'var(--accent-gold)', fontSize: '1.15rem', marginBottom: 28, lineHeight: 1.8 }}>
+              "In a world that pulls us outward, your Chakras are the path back inward — to clarity,
+              vitality, and true presence."
             </p>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-contact'))}
+              style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', color: 'var(--accent-purple-light)', fontSize: '1rem', textDecoration: 'underline', lineHeight: 1.75 }}
+            >
+              Contact Sharan for more information.
+            </button>
           </div>
         </div>
       </section>

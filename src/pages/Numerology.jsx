@@ -2,18 +2,11 @@ import FAQ from '../components/FAQ'
 import { TbNumbers, TbBriefcase, TbHeart, TbCompass, TbUsers } from 'react-icons/tb'
 import './ServicePage.css'
 
-const highlights = [
-  { icon: <TbBriefcase />, title: 'Career Clarity', desc: 'Understand your ideal professional path and when to make bold moves.' },
-  { icon: <TbHeart />, title: 'Relationship Insights', desc: 'Decode compatibility and communication styles between partners.' },
-  { icon: <TbCompass />, title: 'Life Purpose', desc: 'Discover your core strengths, challenges, and karmic lessons.' },
-  { icon: <TbUsers />, title: 'Family Dynamics', desc: 'Better understand parent-child and sibling relationships.' },
-]
-
-const caseStudies = [
-  { title: 'Student at a Crossroads', desc: 'Helped a student choose between engineering and design by revealing their innate creative strengths and ideal timing for the switch.' },
-  { title: 'Parent-Teen Tensions', desc: 'A parent discovered why conventional approaches weren\'t working — their child\'s number profile needed freedom, not structure.' },
-  { title: 'Business Partner Conflict', desc: 'Numerology revealed misaligned work styles between partners, leading to clearer role definitions and renewed collaboration.' },
-  { title: 'Career Shift at 40', desc: 'A professional stuck in a draining job found the confidence to transition after understanding their life cycle timing.' },
+const whoIHelp = [
+  { icon: <TbBriefcase />, title: 'Professionals', desc: 'At a career crossroads and needing clarity on direction, timing, and next moves.' },
+  { icon: <TbCompass />,   title: 'Students',     desc: 'Unsure of their path and looking to understand their natural strengths and purpose.' },
+  { icon: <TbUsers />,     title: 'Business Owners', desc: 'Building strong teams and making aligned decisions through numerological insight.' },
+  { icon: <TbHeart />,     title: 'Couples & Families', desc: 'Understanding compatibility, communication patterns, and relationship dynamics.' },
 ]
 
 const faqItems = [
@@ -42,49 +35,85 @@ export default function Numerology() {
         </div>
       </section>
 
-      <section className="service-intro">
+      {/* Main content */}
+      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
         <div className="container">
-          <div className="intro-content">
-            <h2>Deep Character & Life-Path <span className="gold-text">Analysis</span></h2>
-            <p>
-              Using a blend of Vedic and Chinese numerology with advanced grid-based profiling,
-              I decode the patterns hidden in your birthdate and name — revealing personality
-              traits, emotional tendencies, ideal career paths, relationship compatibility,
-              and the timing of key life events.
-            </p>
-            <p>
-              This isn't fortune-telling. It's a structured, analytical approach to self-understanding
-              that helps professionals, parents, students, and couples make clearer, more confident decisions.
-            </p>
+          <div style={{ maxWidth: 800, margin: '0 auto' }}>
+            <p className="section-label" style={{ textAlign: 'left' }}>Numerology</p>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: 40, fontWeight: 700, textAlign: 'left', lineHeight: 1.3 }}>
+              What If Your Birthdate Held the Clues to Your Career, Relationships{' '}
+              <span className="gradient-text">and Life Purpose?</span>
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                As a professional numerologist, I combine the precision of ancient Vedic and Chinese
+                numerology with a unique grid-based profiling system to decode the blueprint of your life.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                This isn't just number crunching. It's deep character analysis — designed to reveal
+                your personality patterns, natural strengths, emotional tendencies, and even the timing
+                of key life events. My custom-designed grids blend numerology with character archetypes
+                and behavioural insights to map out your life cycles — giving you clarity on where you
+                are, what's influencing you, and what's coming next.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                Whether you're a working professional at a career crossroads, a student unsure of your
+                direction, or a business owner looking to build a strong team, numerology offers
+                something powerful: insight. I help individuals understand their core energies, pinpoint
+                hidden challenges, and align with their strengths to make more confident, purpose-driven
+                decisions.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                My sessions also dive into relationship dynamics — whether it's between partners,
+                parents and children, or team members — offering practical understanding of compatibility
+                and communication patterns.
+              </p>
+              <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
+                This work is not abstract. It's grounded, logical, and directly applicable to real life.
+                Clients leave our sessions feeling clearer about their direction, more confident in their
+                decisions, and better equipped to handle life's transitions.
+              </p>
+
+              <blockquote style={{
+                borderLeft: '3px solid var(--accent-gold)',
+                paddingLeft: 24,
+                margin: '8px 0',
+                color: 'var(--text-primary)',
+                fontSize: '1.1rem',
+                fontWeight: 500,
+                fontStyle: 'italic',
+                lineHeight: 1.7,
+              }}>
+                In a world full of noise and confusion, numerology is your personal GPS — showing you
+                not just who you are, but who you're becoming.
+              </blockquote>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="service-highlights">
+      {/* Who I Help */}
+      <section style={{ padding: '100px 0' }}>
         <div className="container">
-          <h2 className="section-title">How Numerology <span className="gradient-text">Helps</span></h2>
-          <div className="highlights-grid">
-            {highlights.map((h, i) => (
-              <div key={i} className="highlight-card card">
-                <div className="highlight-icon">{h.icon}</div>
-                <h3>{h.title}</h3>
-                <p>{h.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="case-studies">
-        <div className="container">
-          <h2 className="section-title">Real Problems <span className="gold-text">Solved</span></h2>
-          <p className="section-subtitle">Actual client scenarios (details changed for privacy)</p>
-          <div className="cases-grid">
-            {caseStudies.map((c, i) => (
-              <div key={i} className="case-card card">
-                <span className="case-number">0{i + 1}</span>
-                <h3>{c.title}</h3>
-                <p>{c.desc}</p>
+          <h2 className="section-title">Who I <span className="gold-text">Help</span></h2>
+          <p className="section-subtitle">Sessions tailored to where you are in life</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginTop: '48px' }}>
+            {whoIHelp.map((item, i) => (
+              <div key={i} className="card" style={{ padding: '36px 28px', textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '1.8rem',
+                  color: 'var(--accent-purple-light)',
+                  marginBottom: '16px',
+                  display: 'inline-flex',
+                  padding: '14px',
+                  background: 'rgba(123,47,242,0.08)',
+                  borderRadius: '50%',
+                  border: '1px solid rgba(123,47,242,0.15)',
+                }}>
+                  {item.icon}
+                </div>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: 10 }}>{item.title}</h3>
+                <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.92rem', lineHeight: 1.7 }}>{item.desc}</p>
               </div>
             ))}
           </div>

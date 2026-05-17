@@ -2,6 +2,27 @@
    SERVICE PAGES — SHARED PREMIUM STYLES
    ═══════════════════════════════════════ */
 
+/* About Hero Image */
+.about-hero-image {
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.about-img-wrap {
+  width: 90vw;
+  max-width: 1200px;
+}
+
+.about-portrait {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+}
+
 /* Hero Icon */
 .hero-icon-wrap {
   font-size: 3rem;

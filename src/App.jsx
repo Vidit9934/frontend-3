@@ -12,6 +12,8 @@ import ChakraReading from './pages/ChakraReading'
 import Retreats from './pages/Retreats'
 import About from './pages/About'
 import ComingSoon from './pages/ComingSoon'
+import Books from './pages/Books'
+import Fees from './pages/Fees'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -36,8 +38,10 @@ export default function App() {
           <Route path="/chakra-reading" element={<ChakraReading />} />
           <Route path="/retreats" element={<Retreats />} />
           <Route path="/about" element={<About />} />
+          <Route path="/books" element={<Books />} />
           <Route path="/books/:bookId" element={<ComingSoon />} />
           <Route path="/gallery" element={<ComingSoon title="Gallery" />} />
+          <Route path="/fees" element={<Fees />} />
         </Routes>
       </main>
       <Footer />
