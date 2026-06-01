@@ -1,0 +1,70 @@
+import { useState, useEffect } from 'react'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
+import { db } from '../firebase'
+import './Gallery.css'
+
+export default function Gallery() {
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [lightbox, setLightbox] = useState(null)
+
+  useEffect(() => {
+    getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
+      .then(snap => setItems(snap.docs.map(d => ({ id: d.id, ...d.data() }))))
+      .finally(() => setLoading(false))
+  }, [])
+
+  return (
+    <>
+      <section className="page-hero gallery-hero">
+        <div className="container">
+          <span className="section-label">Visual Journey</span>
+          <h1>Gallery</h1>
+          <p className="page-hero-sub">Moments, sessions &amp; transformations captured along the way.</p>
+        </div>
+      </section>
+
+      <section className="gallery-section">
+        <div className="container">
+          {loading ? (
+            <div className="gallery-loading">
+              {[...Array(6)].map((_, i) => <div key={i} className="gallery-skeleton" />)}
+            </div>
+          ) : items.length === 0 ? (
+            <div className="gallery-empty">
+              <p>No images yet — check back soon.</p>
+            </div>
+          ) : (
+            <div className="gallery-grid">
+              {items.map(g => (
+                <div
+                  key={g.id}
+                  className="gallery-card"
+                  onClick={() => setLightbox(g)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => e.key === 'Enter' && setLightbox(g)}
+                >
+                  <img src={g.url} alt={g.title} className="gallery-img" loading="lazy" />
+                  <div className="gallery-card-overlay">
+                    <span className="gallery-card-title">{g.title}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {lightbox && (
+        <div className="gallery-lightbox" onClick={() => setLightbox(null)}>
+          <div className="gallery-lightbox-inner" onClick={e => e.stopPropagation()}>
+            <button className="gallery-lightbox-close" onClick={() => setLightbox(null)}>✕</button>
+            <img src={lightbox.url} alt={lightbox.title} className="gallery-lightbox-img" />
+            <p className="gallery-lightbox-title">{lightbox.title}</p>
+          </div>
+        </div>
+      )}
+    </>
+  )
+}

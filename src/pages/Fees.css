@@ -1,0 +1,189 @@
+.fees-hero {
+  text-align: center;
+}
+.fees-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  margin: 8px 0 12px;
+  background: linear-gradient(135deg, #7b2ff2, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fees-section {
+  padding: 64px 0 96px;
+}
+
+.fees-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Card */
+.fees-card {
+  background: rgba(15, 15, 45, 0.7);
+  border: 1px solid rgba(123, 47, 242, 0.2);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.25s;
+}
+.fees-card:hover {
+  border-color: rgba(123, 47, 242, 0.45);
+}
+
+.fees-card-header {
+  padding: 32px 36px 24px;
+  border-bottom: 1px solid rgba(123, 47, 242, 0.1);
+}
+
+.fees-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.fees-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #f8f7ff;
+  margin: 0 0 18px;
+}
+
+.fees-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.fees-amount {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #d4a853, #f0c97a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.fees-per {
+  color: var(--text-secondary, #b0adc8);
+  font-size: 1rem;
+}
+
+.fees-bespoke-sub {
+  color: var(--text-secondary, #b0adc8);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.fees-card-body {
+  padding: 24px 36px 32px;
+}
+
+/* List */
+.fees-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fees-list li {
+  color: var(--text-secondary, #b0adc8);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+
+.fees-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #7b2ff2;
+  font-size: 0.7rem;
+  top: 4px;
+}
+
+.fees-list li strong {
+  color: #f8f7ff;
+}
+
+/* Note / appreciation */
+.fees-note {
+  background: rgba(212, 168, 83, 0.07);
+  border-left: 3px solid rgba(212, 168, 83, 0.5);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.fees-note p {
+  color: var(--text-secondary, #b0adc8);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Warning notice */
+.fees-notice {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: #b0adc8;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+.fees-notice strong {
+  color: #ef9999;
+}
+
+/* Bespoke card */
+.fees-card--bespoke .fees-card-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.fees-whatsapp-cta-text {
+  color: var(--text-secondary, #b0adc8);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin: 0 0 20px;
+}
+
+.fees-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.fees-whatsapp-btn:hover {
+  background: #1ebe5a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .fees-card-header,
+  .fees-card-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .fees-amount { font-size: 2.4rem; }
+  .fees-title { font-size: 1.25rem; }
+}

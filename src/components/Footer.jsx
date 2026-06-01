@@ -48,6 +48,7 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()} My LifeChoices by Sharan. All rights reserved.</p>
         </div>
       </div>
+      <img src="/pics/badal.png" alt="" className="footer-badal" aria-hidden="true" />
     </footer>
   )
 }

@@ -13,16 +13,16 @@ const whyJoin = [
 const faqItems = [
   { q: 'Do I need prior meditation or yoga experience?', a: 'Not at all. Sessions are designed to meet you where you are — whether you\'re a complete beginner or have an existing practice. I guide you through every step.' },
   { q: 'What techniques do you teach?', a: 'I draw from classical practices including Pranayama, Yoga Nidra, Bhastrika, Kapalabhati, Anuloma Viloma and Vedic Mantra Meditation — tailored to what your body and mind need.' },
-  { q: 'How quickly will I feel results?', a: 'Many clients feel a noticeable shift after the very first session — calmer mind, deeper breathing and reduced tension. Lasting transformation builds with consistent practice.' },
-  { q: 'Is this available as a group session?', a: 'Yes, both private one-on-one sessions and small group sessions are available. Group sessions are great for couples, families, or small teams.' },
-  { q: 'Can breathwork help with sleep issues?', a: 'Absolutely. Specific pranayama and yoga nidra techniques are highly effective for insomnia, restless sleep, and difficulty winding down at night.' },
+  { q: 'How quickly will I feel results?', a: 'Many clients feel a noticeable shift after the very first session — calmer mind deeper breathing and reduced tension. Lasting transformation builds with consistent practice.' },
+  { q: 'Is this available as a group session?', a: 'Yes, both private one-on-one sessions and small group sessions are available. Group sessions are great for couples, families or small teams.' },
+  { q: 'Can breathwork help with sleep issues?', a: 'Absolutely. Specific pranayama and yoga nidra techniques are highly effective for insomnia, restless sleep and difficulty winding down at night.' },
   { q: 'Are online sessions as effective as in-person?', a: 'Yes. The guided nature of these practices translates very well to video calls. Many of my regular clients attend exclusively online.' },
 ]
 
 export default function MeditationBreathwork() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg6.png)', backgroundSize: 'cover', backgroundPosition: 'center top' }}>
         <div className="container hero-content">
           <div className="hero-icon-wrap">
             <TbYoga />
@@ -81,7 +81,7 @@ export default function MeditationBreathwork() {
       <section style={{ padding: '100px 0' }}>
         <div className="container">
           <h2 className="section-title">Why <span className="gradient-text">Join?</span></h2>
-          <p className="section-subtitle">What each session brings to your body, mind, and life</p>
+          <p className="section-subtitle">What each session brings to your body, mind and life</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '48px' }}>
             {whyJoin.map((item, i) => (
               <div key={i} className="card" style={{ padding: '32px 28px', display: 'flex', gap: '20px', alignItems: 'flex-start' }}>

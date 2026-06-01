@@ -4,6 +4,16 @@
   padding: 72px 0 0;
   position: relative;
   z-index: 1;
+  overflow: hidden;
+}
+
+.footer-badal {
+  display: block;
+  width: 100%;
+  margin-top: -2px;
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
 }
 
 .footer-grid {

@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { collection, getDocs, doc, addDoc, deleteDoc, updateDoc, writeBatch, query, orderBy, where, documentId } from 'firebase/firestore'
+import { db } from '../firebase'
 import './Admin.css'
 
 const ADMIN_PIN = 'sharan2024'
@@ -24,32 +26,147 @@ function toDateStr(d) {
   return `${y}-${m}-${day}`
 }
 
-function loadAvailability() {
-  try { return JSON.parse(localStorage.getItem('mlc_availability') || '{}') }
-  catch { return {} }
-}
-
-function loadBookings() {
-  try { return JSON.parse(localStorage.getItem('mlc_bookings') || '[]') }
-  catch { return [] }
-}
-
 export default function Admin() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem('mlc_admin') === '1')
   const [pin, setPin] = useState('')
   const [pinError, setPinError] = useState(false)
   const [tab, setTab] = useState('availability')
   const [weekOffset, setWeekOffset] = useState(0)
-  const [availability, setAvailability] = useState(loadAvailability)
-  const [bookings, setBookings] = useState(loadBookings)
+  const [availability, setAvailability] = useState({})
+  const [bookedMap, setBookedMap] = useState({})
+  const [bookings, setBookings] = useState([])
+  const [loadingAvail, setLoadingAvail] = useState(false)
+  const [loadingBookings, setLoadingBookings] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const availCacheRef = useRef({})
+  const bookingsFetchedRef = useRef(false)
+  const galleryFetchedRef = useRef(false)
+
+  // Gallery state
+  const [galleryItems, setGalleryItems] = useState([])
+  const [loadingGallery, setLoadingGallery] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [galleryTitle, setGalleryTitle] = useState('')
+  const [galleryFile, setGalleryFile] = useState(null)
+  const [galleryPreview, setGalleryPreview] = useState(null)
 
   const weekDates = getWeekDates(weekOffset)
   const todayStr = toDateStr(new Date())
 
+  const fetchAvailability = useCallback(async (offset) => {
+    if (availCacheRef.current[offset]) {
+      setAvailability(availCacheRef.current[offset].availability)
+      setBookedMap(availCacheRef.current[offset].bookedMap)
+      return
+    }
+    setLoadingAvail(true)
+    try {
+      const dates = getWeekDates(offset)
+      const dateStrings = dates.map(toDateStr)
+      const [availSnap, bookingsSnap] = await Promise.all([
+        getDocs(query(collection(db, 'availability'), where(documentId(), 'in', dateStrings))),
+        getDocs(query(collection(db, 'bookings'), where('date', 'in', dateStrings))),
+      ])
+      const availability = Object.fromEntries(dateStrings.map(s => [s, {}]))
+      availSnap.docs.forEach(d => { availability[d.id] = d.data().slots || {} })
+
+      const bookedMap = {}
+      bookingsSnap.docs.forEach(d => {
+        const b = d.data()
+        if (b.status === 'cancelled') return
+        if (!bookedMap[b.date]) bookedMap[b.date] = {}
+        bookedMap[b.date][b.slot] = true
+      })
+
+      availCacheRef.current[offset] = { availability, bookedMap }
+      setAvailability(availability)
+      setBookedMap(bookedMap)
+    } finally {
+      setLoadingAvail(false)
+    }
+  }, [])
+
+  const fetchBookings = useCallback(async () => {
+    setLoadingBookings(true)
+    try {
+      const snap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')))
+      setBookings(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+      bookingsFetchedRef.current = true
+    } finally {
+      setLoadingBookings(false)
+    }
+  }, [])
+
   useEffect(() => {
-    if (authed && tab === 'bookings') setBookings(loadBookings())
-  }, [authed, tab])
+    if (authed && tab === 'availability') fetchAvailability(weekOffset)
+  }, [authed, tab, weekOffset, fetchAvailability])
+
+  useEffect(() => {
+    if (authed && tab === 'bookings' && !bookingsFetchedRef.current) fetchBookings()
+  }, [authed, tab, fetchBookings])
+
+  const fetchGallery = useCallback(async () => {
+    setLoadingGallery(true)
+    try {
+      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
+      setGalleryItems(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+      galleryFetchedRef.current = true
+    } finally {
+      setLoadingGallery(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (authed && tab === 'gallery' && !galleryFetchedRef.current) fetchGallery()
+  }, [authed, tab, fetchGallery])
+
+  const handleGalleryFileChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setGalleryFile(file)
+    setGalleryPreview(URL.createObjectURL(file))
+  }
+
+  const handleGalleryUpload = async (e) => {
+    e.preventDefault()
+    if (!galleryFile || !galleryTitle.trim()) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', galleryFile)
+      fd.append('upload_preset', 'ml_default')
+      const res = await fetch('https://api.cloudinary.com/v1_1/dbb5nj0ht/image/upload', {
+        method: 'POST', body: fd,
+      })
+      const data = await res.json()
+      if (!data.secure_url) throw new Error(data.error?.message || 'Upload failed')
+      const docRef = await addDoc(collection(db, 'gallery'), {
+        url: data.secure_url,
+        title: galleryTitle.trim(),
+        createdAt: new Date().toISOString(),
+      })
+      setGalleryItems(prev => [{ id: docRef.id, url: data.secure_url, title: galleryTitle.trim(), createdAt: new Date().toISOString() }, ...prev])
+      setGalleryTitle('')
+      setGalleryFile(null)
+      setGalleryPreview(null)
+      e.target.reset()
+    } catch (err) {
+      alert('Upload failed: ' + err.message)
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  const handleGalleryDelete = async (id) => {
+    if (!window.confirm('Remove this image from the gallery?')) return
+    try {
+      await deleteDoc(doc(db, 'gallery', id))
+      setGalleryItems(prev => prev.filter(g => g.id !== id))
+    } catch {
+      alert('Delete failed.')
+    }
+  }
 
   const login = () => {
     if (pin === ADMIN_PIN) {
@@ -94,16 +211,31 @@ export default function Admin() {
     }))
   }
 
-  const handleSave = () => {
-    localStorage.setItem('mlc_availability', JSON.stringify(availability))
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2000)
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      const batch = writeBatch(db)
+      for (const [dateStr, slots] of Object.entries(availability)) {
+        batch.set(doc(db, 'availability', dateStr), { slots })
+      }
+      await batch.commit()
+      delete availCacheRef.current[weekOffset]
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2000)
+    } catch {
+      alert('Save failed. Check your connection and try again.')
+    } finally {
+      setSaving(false)
+    }
   }
 
-  const clearBookings = () => {
-    if (window.confirm('Clear all bookings? This cannot be undone.')) {
-      localStorage.removeItem('mlc_bookings')
-      setBookings([])
+  const updateStatus = async (bookingId, status) => {
+    try {
+      await updateDoc(doc(db, 'bookings', bookingId), { status })
+      setBookings(prev => prev.map(b => b.id === bookingId ? { ...b, status } : b))
+      availCacheRef.current = {}
+    } catch {
+      alert('Failed to update status.')
     }
   }
 
@@ -155,6 +287,12 @@ export default function Admin() {
           📋 Bookings
           {bookings.length > 0 && <span className="bookings-count">{bookings.length}</span>}
         </button>
+        <button
+          className={`admin-tab-btn ${tab === 'gallery' ? 'active' : ''}`}
+          onClick={() => setTab('gallery')}
+        >
+          🖼️ Gallery
+        </button>
       </div>
 
       <div className="admin-content">
@@ -172,58 +310,78 @@ export default function Admin() {
               <button className="week-arrow" onClick={() => setWeekOffset(o => o + 1)}>Next Week →</button>
             </div>
 
-            <div className="avail-table-wrap">
-              <table className="avail-table">
-                <thead>
-                  <tr>
-                    <th className="avail-th day-col">Day</th>
-                    {TIME_SLOTS.map(s => <th key={s} className="avail-th">{s}</th>)}
-                    <th className="avail-th">Quick</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {weekDates.map(date => {
-                    const dateStr = toDateStr(date)
-                    const isPast = date < new Date(new Date().setHours(0, 0, 0, 0))
-                    const isToday = dateStr === todayStr
-                    return (
-                      <tr key={dateStr} className={isPast ? 'row-past' : ''}>
-                        <td className={`avail-day-cell ${isToday ? 'is-today' : ''}`}>
-                          <span className="day-name">{DAY_LABELS[date.getDay()]}</span>
-                          <span className="day-num">{date.getDate()}</span>
-                          {isToday && <span className="today-chip">Today</span>}
-                        </td>
-                        {TIME_SLOTS.map(slot => {
-                          const enabled = isSlotEnabled(dateStr, slot)
-                          return (
-                            <td key={slot} className="avail-slot-cell">
-                              <button
-                                className={`slot-toggle-btn ${enabled ? 'on' : 'off'}`}
-                                onClick={() => !isPast && toggleSlot(dateStr, slot)}
-                                disabled={isPast}
-                                title={enabled ? 'Click to disable' : 'Click to enable'}
-                              >
-                                {enabled ? '✓' : '✕'}
-                              </button>
-                            </td>
-                          )
-                        })}
-                        <td className="avail-quick-cell">
-                          <button className="quick-btn on-all" onClick={() => enableAll(dateStr)} disabled={isPast} title="Enable all">All On</button>
-                          <button className="quick-btn off-all" onClick={() => disableAll(dateStr)} disabled={isPast} title="Disable all">All Off</button>
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </div>
+            {loadingAvail ? (
+              <p style={{ color: '#b0adc8', textAlign: 'center', padding: '40px 0' }}>Loading availability…</p>
+            ) : (
+              <div className="avail-table-wrap">
+                <table className="avail-table">
+                  <thead>
+                    <tr>
+                      <th className="avail-th day-col">Day</th>
+                      {TIME_SLOTS.map(s => <th key={s} className="avail-th">{s}</th>)}
+                      <th className="avail-th">Quick</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {weekDates.map(date => {
+                      const dateStr = toDateStr(date)
+                      const isPast = date < new Date(new Date().setHours(0, 0, 0, 0))
+                      const isToday = dateStr === todayStr
+                      return (
+                        <tr key={dateStr} className={isPast ? 'row-past' : ''}>
+                          <td className={`avail-day-cell ${isToday ? 'is-today' : ''}`}>
+                            <span className="day-name">{DAY_LABELS[date.getDay()]}</span>
+                            <span className="day-num">{date.getDate()}</span>
+                            {isToday && <span className="today-chip">Today</span>}
+                          </td>
+                          {TIME_SLOTS.map(slot => {
+                            const enabled = isSlotEnabled(dateStr, slot)
+                            const isBooked = bookedMap[dateStr]?.[slot]
+                            return (
+                              <td key={slot} className="avail-slot-cell">
+                                {isBooked ? (
+                                  <button
+                                    className="slot-toggle-btn booked"
+                                    disabled
+                                    title="Booked by user — see Bookings tab"
+                                  >
+                                    📅
+                                  </button>
+                                ) : (
+                                  <button
+                                    className={`slot-toggle-btn ${enabled ? 'on' : 'off'}`}
+                                    onClick={() => !isPast && toggleSlot(dateStr, slot)}
+                                    disabled={isPast}
+                                    title={enabled ? 'Click to disable' : 'Click to enable'}
+                                  >
+                                    {enabled ? '✓' : '✕'}
+                                  </button>
+                                )}
+                              </td>
+                            )
+                          })}
+                          <td className="avail-quick-cell">
+                            <button className="quick-btn on-all" onClick={() => enableAll(dateStr)} disabled={isPast} title="Enable all">All On</button>
+                            <button className="quick-btn off-all" onClick={() => disableAll(dateStr)} disabled={isPast} title="Disable all">All Off</button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
 
             <div className="avail-legend-row">
               <span className="legend-item"><span className="legend-dot on" />Enabled (bookable)</span>
               <span className="legend-item"><span className="legend-dot off" />Disabled (hidden from users)</span>
-              <button className={`admin-primary-btn save-btn ${saved ? 'btn-saved' : ''}`} onClick={handleSave}>
-                {saved ? '✓ Saved!' : 'Save Changes'}
+              <span className="legend-item"><span className="legend-dot booked-dot" />📅 Booked (user)</span>
+              <button
+                className={`admin-primary-btn save-btn ${saved ? 'btn-saved' : ''}`}
+                onClick={handleSave}
+                disabled={saving || loadingAvail}
+              >
+                {saving ? 'Saving…' : saved ? '✓ Saved!' : 'Save Changes'}
               </button>
             </div>
           </div>
@@ -234,20 +392,22 @@ export default function Admin() {
           <div className="bookings-section">
             <div className="bookings-header-row">
               <h3 className="bookings-title">All Bookings ({bookings.length})</h3>
-              {bookings.length > 0 && (
-                <button className="clear-btn" onClick={clearBookings}>Clear All</button>
-              )}
+              <button className="week-arrow" onClick={() => { bookingsFetchedRef.current = false; fetchBookings() }} disabled={loadingBookings}>
+                {loadingBookings ? 'Refreshing…' : '↻ Refresh'}
+              </button>
             </div>
 
-            {bookings.length === 0 ? (
+            {loadingBookings ? (
+              <p style={{ color: '#b0adc8', textAlign: 'center', padding: '40px 0' }}>Loading bookings…</p>
+            ) : bookings.length === 0 ? (
               <div className="empty-bookings">
                 <p>No bookings yet.</p>
                 <span>When users book sessions, they'll appear here.</span>
               </div>
             ) : (
               <div className="bookings-grid">
-                {[...bookings].reverse().map((b, i) => (
-                  <div key={b.id || i} className="booking-card">
+                {bookings.map((b) => (
+                  <div key={b.id} className={`booking-card booking-status-${b.status || 'pending'}`}>
                     <div className="booking-card-top">
                       <span className="booking-name">{b.name}</span>
                       <span className={`booking-service-badge service-${b.service}`}>{b.service}</span>
@@ -262,6 +422,23 @@ export default function Admin() {
                       <span>📅 {b.date}</span>
                       <span>🕐 {b.slot}</span>
                     </div>
+                    <div className="booking-status-row">
+                      <span className={`status-chip status-${b.status || 'pending'}`}>
+                        {b.status || 'pending'}
+                      </span>
+                      {(b.status === 'pending' || !b.status) && (
+                        <>
+                          <button className="status-btn confirm-btn" onClick={() => updateStatus(b.id, 'confirmed')}>Confirm</button>
+                          <button className="status-btn cancel-btn" onClick={() => updateStatus(b.id, 'cancelled')}>Cancel</button>
+                        </>
+                      )}
+                      {b.status === 'confirmed' && (
+                        <button className="status-btn cancel-btn" onClick={() => updateStatus(b.id, 'cancelled')}>Cancel</button>
+                      )}
+                      {b.status === 'cancelled' && (
+                        <button className="status-btn confirm-btn" onClick={() => updateStatus(b.id, 'confirmed')}>Restore</button>
+                      )}
+                    </div>
                     <div className="booking-submitted">
                       Submitted: {new Date(b.createdAt).toLocaleString('en-GB', {
                         day: 'numeric', month: 'short', year: 'numeric',
@@ -274,6 +451,70 @@ export default function Admin() {
             )}
           </div>
         )}
+        {/* ── GALLERY TAB ── */}
+        {tab === 'gallery' && (
+          <div className="gallery-admin-section">
+            <form className="gallery-upload-form" onSubmit={handleGalleryUpload}>
+              <h3 className="bookings-title" style={{ marginBottom: 16 }}>Upload New Image</h3>
+              <div className="gallery-upload-row">
+                <input
+                  type="text"
+                  className="gallery-title-input"
+                  placeholder="Image title"
+                  value={galleryTitle}
+                  onChange={e => setGalleryTitle(e.target.value)}
+                  required
+                />
+                <label className="gallery-file-label">
+                  {galleryFile ? galleryFile.name : 'Choose image…'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleGalleryFileChange}
+                    required
+                    style={{ display: 'none' }}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="admin-primary-btn"
+                  style={{ width: 'auto', marginTop: 0, padding: '10px 24px' }}
+                  disabled={uploading || !galleryFile || !galleryTitle.trim()}
+                >
+                  {uploading ? 'Uploading…' : 'Upload'}
+                </button>
+              </div>
+              {galleryPreview && (
+                <img src={galleryPreview} className="gallery-preview-img" alt="preview" />
+              )}
+            </form>
+
+            {loadingGallery ? (
+              <p style={{ color: '#b0adc8', textAlign: 'center', padding: '40px 0' }}>Loading gallery…</p>
+            ) : galleryItems.length === 0 ? (
+              <div className="empty-bookings">
+                <p>No images yet.</p>
+                <span>Uploaded images will appear here and on the public gallery page.</span>
+              </div>
+            ) : (
+              <div className="gallery-admin-grid">
+                {galleryItems.map(g => (
+                  <div key={g.id} className="gallery-admin-card">
+                    <img src={g.url} alt={g.title} className="gallery-admin-img" />
+                    <div className="gallery-admin-info">
+                      <span className="gallery-admin-title">{g.title}</span>
+                      <span className="gallery-admin-date">
+                        {new Date(g.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                    </div>
+                    <button className="clear-btn gallery-del-btn" onClick={() => handleGalleryDelete(g.id)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
       </div>
     </div>
   )

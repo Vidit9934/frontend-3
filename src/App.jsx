@@ -16,6 +16,7 @@ import Books from './pages/Books'
 import Fees from './pages/Fees'
 import Admin from './pages/Admin'
 import WizTec from './pages/WizTec'
+import Gallery from './pages/Gallery'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -47,7 +48,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/books" element={<Books />} />
           <Route path="/books/:bookId" element={<ComingSoon />} />
-          <Route path="/gallery" element={<ComingSoon title="Gallery" />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/fees" element={<Fees />} />
           <Route path="/wiztec" element={<WizTec />} />
         </Routes>

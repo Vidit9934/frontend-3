@@ -277,6 +277,18 @@
 }
 .slot-toggle-btn:disabled { cursor: not-allowed; }
 
+.slot-toggle-btn.booked {
+  background: rgba(212, 168, 83, 0.18);
+  border-color: rgba(212, 168, 83, 0.45);
+  color: #d4a853;
+  font-size: 1rem;
+}
+.slot-toggle-btn.booked:disabled {
+  cursor: default;
+  opacity: 1;
+}
+.legend-dot.booked-dot { background: #d4a853; }
+
 .avail-quick-cell {
   padding: 8px 10px;
   text-align: center;
@@ -435,6 +447,175 @@
   color: #5e5b7a;
   border-top: 1px solid rgba(255,255,255,0.05);
   padding-top: 10px;
+}
+
+/* Status row */
+.booking-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.status-chip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+.status-chip.status-pending {
+  background: rgba(212, 168, 83, 0.15);
+  color: #d4a853;
+  border: 1px solid rgba(212, 168, 83, 0.3);
+}
+.status-chip.status-confirmed {
+  background: rgba(34, 197, 94, 0.12);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.status-chip.status-cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.status-btn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.status-btn.confirm-btn {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+.status-btn.confirm-btn:hover { opacity: 0.75; }
+.status-btn.cancel-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+}
+.status-btn.cancel-btn:hover { opacity: 0.75; }
+
+.booking-card.booking-status-confirmed {
+  border-color: rgba(34, 197, 94, 0.25);
+}
+.booking-card.booking-status-cancelled {
+  opacity: 0.55;
+}
+
+/* ── Gallery Admin ── */
+.gallery-admin-section {}
+
+.gallery-upload-form {
+  background: rgba(15, 15, 45, 0.6);
+  border: 1px solid rgba(123, 47, 242, 0.15);
+  border-radius: 14px;
+  padding: 20px 22px;
+  margin-bottom: 28px;
+}
+
+.gallery-upload-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.gallery-title-input {
+  flex: 1;
+  min-width: 160px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(123, 47, 242, 0.3);
+  border-radius: 8px;
+  color: #f8f7ff;
+  font-size: 0.9rem;
+  outline: none;
+}
+.gallery-title-input:focus { border-color: #7b2ff2; }
+.gallery-title-input::placeholder { color: #5e5b7a; }
+
+.gallery-file-label {
+  flex: 1;
+  min-width: 160px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(123, 47, 242, 0.35);
+  border-radius: 8px;
+  color: #b0adc8;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gallery-file-label:hover { border-color: #7b2ff2; background: rgba(123, 47, 242, 0.08); }
+
+.gallery-preview-img {
+  margin-top: 14px;
+  max-height: 160px;
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(123, 47, 242, 0.2);
+  object-fit: cover;
+}
+
+.gallery-admin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.gallery-admin-card {
+  background: rgba(15, 15, 45, 0.7);
+  border: 1px solid rgba(123, 47, 242, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.gallery-admin-card:hover { border-color: rgba(123, 47, 242, 0.35); }
+
+.gallery-admin-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-admin-info {
+  padding: 10px 12px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gallery-admin-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #f8f7ff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-admin-date {
+  font-size: 0.72rem;
+  color: #5e5b7a;
+}
+
+.gallery-del-btn {
+  margin: 4px 12px 12px;
+  display: block;
+  width: calc(100% - 24px);
+  text-align: center;
 }
 
 /* Responsive */

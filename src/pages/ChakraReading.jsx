@@ -2,10 +2,10 @@ import { TbEye, TbBrain, TbFeather, TbBolt } from 'react-icons/tb'
 import './ServicePage.css'
 
 const experiencePoints = [
-  { num: '01', text: 'A guided journey through all seven major Chakras, from Muladhara (root) to Sahasrara (crown)' },
-  { num: '02', text: 'Insights into how each Chakra influences your emotions, behavior, and decision-making' },
+  { num: '01', text: 'A guided journey through all seven major Chakras from Muladhara (root) to Sahasrara (crown)' },
+  { num: '02', text: 'Insights into how each Chakra influences your emotions, behavior and decision-making' },
   { num: '03', text: 'Discovery of where emotional patterns and physical tension live in your body' },
-  { num: '04', text: 'Alignment strategies to bring your energy into balance using Yogic, meditative, and numerical wisdom' },
+  { num: '04', text: 'Alignment strategies to bring your energy into balance using Yogic, meditation and numerical wisdom' },
   { num: '05', text: 'Integration of my custom numerology grid with Chakra archetypes for a more personalized roadmap' },
 ]
 
@@ -18,7 +18,7 @@ const clientLeaves = [
 export default function ChakraReading() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg4.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
           <div className="hero-icon-wrap">
             <TbEye />
@@ -54,7 +54,7 @@ export default function ChakraReading() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Using a unique method that overlays numerology onto the Chakra system, I offer
-                insight into where your power is blocked, where it flows naturallys and how to
+                insight into where your power is blocked, where it flows naturally and how to
                 realign with your core self.
               </p>
             </div>

@@ -211,7 +211,7 @@ export default function BioGeometry() {
       <SolarSystem />
 
       {/* Hero */}
-      <section className="page-hero" style={{ position: 'relative', overflow: 'hidden' }}>
+      <section className="page-hero" style={{ position: 'relative', overflow: 'hidden', backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg5.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* Galaxy core behind icon */}
         <div style={{
           position: 'absolute',
