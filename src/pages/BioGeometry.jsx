@@ -89,7 +89,7 @@ const painPoints = [
 
 const faqItems = [
   { q: 'What exactly is BioGeometry?',          a: 'BioGeometry is the science of using geometric shapes, proportions and angles to harmonize energy fields in your environment. It was developed by Dr. Ibrahim Karim and is used worldwide.' },
-  { q: 'How does it counter EMF and 5G effects?', a: 'BioGeometry shapes introduce a balancing energy quality that counteracts the stress caused by electromagnetic radiation from Wi-Fi routers, phones, and 5G towers — without blocking the signals themselves.' },
+  { q: 'How does it counter EMF and 5G effects?', a: 'BioGeometry shapes introduce a balancing energy quality that counteracts the stress caused by electromagnetic radiation from Wi-Fi routers, phones and 5G towers — without blocking the signals themselves.' },
   { q: 'Will I notice a difference quickly?',   a: 'Most clients report noticeable improvements within days — better sleep, clearer thinking, fewer arguments at home and reduced physical tension.' },
   { q: 'Do you need to visit my home or office?', a: 'Ideally yes, for the most accurate placement. However, remote consultations are available where I guide you through the process using floor plans and photos.' },
   { q: 'Is this related to Feng Shui?',         a: 'While there are overlapping principles around environmental energy, BioGeometry is a distinct science based on geometric shapes and measurable energy qualities rather than traditional Feng Shui elements.' },
@@ -292,10 +292,10 @@ export default function BioGeometry() {
                 BioGeometry offers a simple, science-based way to restore balance to the spaces you
                 live and work in — without needing to overhaul your lifestyle. It works by using
                 precise geometric shapes to harmonize the subtle energy fields in your environment,
-                helping your body return to its natural state of calm, clarity, and vitality.
+                helping your body return to its natural state of calm, clarity and vitality.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Originally developed by Dr. Ibrahim Karim (My Guru).
+                Originally developed by <a href="https://youtu.be/J3RlmAu3Rbs?si=PjKY_3MrqWdMm8-r" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-purple-light)', textDecoration: 'underline' }}>Dr. Ibrahim Karim</a> (My Guru).
                 BioGeometry has been successfully applied in homes, offices, schools and even entire towns. These shapes interact with the electromagnetic and geopathic stresses around us—like Wi-Fi, 5G, and underground disturbances—to neutralize their effects on your nervous system.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>

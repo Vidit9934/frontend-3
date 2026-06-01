@@ -4,7 +4,7 @@ import { FaArrowRight, FaStar, FaQuoteLeft, FaYoutube } from 'react-icons/fa'
 import { TbNumbers, TbGeometry, TbYoga, TbEye } from 'react-icons/tb'
 import './Home.css'
 
-const YT_VIDEO_ID = '68jC1sZJAkY'
+const YT_VIDEO_ID = '8kaINl2tsb4'
 const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 // ── Slide components (defined outside to avoid re-mounting on every render) ──

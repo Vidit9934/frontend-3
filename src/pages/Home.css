@@ -25,6 +25,19 @@
   align-items: center;
 }
 
+/* Slide-specific background images */
+.slide-numerology {
+  background-image: linear-gradient(rgba(5, 5, 25, 0.6), rgba(5, 5, 25, 0.6)), url('/pics/bg1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.slide-book {
+  background-image: linear-gradient(rgba(5, 5, 15, 0.55), rgba(5, 5, 15, 0.55)), url('/pics/bg2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 /* Ambient orbs per slide */
 .slide-orb {
   position: absolute;
@@ -56,7 +69,7 @@
 
 .slide-inner--split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.4fr;
   gap: 60px;
   align-items: center;
 }
