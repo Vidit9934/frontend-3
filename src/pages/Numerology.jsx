@@ -22,7 +22,7 @@ const faqItems = [
 export default function Numerology() {
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg3.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
           <div className="hero-icon-wrap">
             <TbNumbers />
