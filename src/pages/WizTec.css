@@ -20,7 +20,7 @@
 .wiztec-hero-glow--red {
   width: 500px; height: 500px;
   top: -100px; left: -80px;
-  background: rgba(220, 38, 38, 0.12);
+  background: rgba(123, 47, 242, 0.14);
 }
 .wiztec-hero-glow--purple {
   width: 400px; height: 400px;
@@ -46,9 +46,6 @@
   margin-bottom: 20px;
   color: var(--text-primary);
 }
-.wiztec-red {
-  color: #e02020;
-}
 .wiztec-tagline {
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   font-weight: 600;
@@ -67,13 +64,6 @@
 .wiztec-team-section {
   padding: 100px 0;
   background: var(--bg-secondary);
-}
-.wiztec-section-label {
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #e02020;
-  margin-bottom: 12px;
 }
 .wiztec-section-title {
   font-size: clamp(2rem, 4vw, 3rem);
@@ -96,7 +86,7 @@
   transition: border-color 0.3s, transform 0.3s;
 }
 .wiztec-card:hover {
-  border-color: rgba(220, 38, 38, 0.4);
+  border-color: rgba(123, 47, 242, 0.4);
   transform: translateY(-4px);
 }
 .wiztec-avatar {
@@ -104,8 +94,8 @@
   width: 72px;
   height: 72px;
   border-radius: 16px;
-  border: 2px solid rgba(220, 38, 38, 0.3);
-  background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(123,47,242,0.1));
+  border: 2px solid rgba(123, 47, 242, 0.3);
+  background: linear-gradient(135deg, rgba(123,47,242,0.1), rgba(168,85,247,0.1));
 }
 .wiztec-card-body {
   flex: 1;
@@ -115,7 +105,7 @@
   font-size: 0.7rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #e02020;
+  color: var(--accent-purple-light);
   margin-bottom: 4px;
 }
 .wiztec-card-name {
@@ -143,7 +133,7 @@
 .wiztec-mission-divider {
   width: 60px;
   height: 3px;
-  background: #e02020;
+  background: var(--accent-purple);
   margin: 0 auto 48px;
   border-radius: 2px;
 }
@@ -170,7 +160,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #e02020;
+  background: var(--accent-purple);
   color: #fff;
   font-weight: 700;
   font-size: 0.95rem;
@@ -180,13 +170,13 @@
   transition: background 0.25s, transform 0.25s;
 }
 .wiztec-cta-btn:hover {
-  background: #b91c1c;
+  background: #6d28d9;
   transform: translateY(-2px);
 }
 .wiztec-closing {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #e02020;
+  color: var(--accent-purple-light);
   font-style: italic;
   margin: 0;
 }

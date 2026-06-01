@@ -19,7 +19,7 @@ const team = [
   {
     role: 'Web Builder Extraordinaire',
     name: 'Vidit',
-    desc: 'The digital architect of WizTec. Vidit builds fast, builds clean and builds to last — capable of raising an entire web presence from the ground up in a single day. Meticulous in code, relentless in direction and perpetually in demand. This guy is busy.',
+    desc: 'The digital architect of WizTec. Certified Claude architect and leading GenAI developer — Vidit builds fast, clean and to last, fusing AI into every layer to raise an entire web presence in a day. Meticulous in code, relentless in direction and perpetually in demand. This guy is busy.',
   },
   {
     role: 'AI Robotics & Outreach',
@@ -44,7 +44,7 @@ export default function WizTec() {
         <div className="container wiztec-hero-inner">
           <p className="wiztec-eyebrow">Built by believers</p>
           <h1 className="wiztec-brand">
-            <span className="wiztec-red">Wiz</span>Tec
+            <span className="gradient-text">Wiz</span>Tec
           </h1>
           <p className="wiztec-tagline">We Re-Incarnate You on the Web.</p>
           <p className="wiztec-sub">
@@ -57,8 +57,8 @@ export default function WizTec() {
       {/* ── Team Grid ── */}
       <section className="wiztec-team-section">
         <div className="container">
-          <p className="wiztec-section-label">The People Behind the Magic</p>
-          <h2 className="wiztec-section-title">Meet the <span className="wiztec-red">Team</span></h2>
+          <p className="section-label">The People Behind the Magic</p>
+          <h2 className="section-title">Meet the <span className="gradient-text">Team</span></h2>
           <div className="wiztec-team-grid">
             {team.map((member, i) => (
               <div className="wiztec-card" key={i}>

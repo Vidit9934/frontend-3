@@ -99,7 +99,7 @@ const SLIDES = 3
 
 const services = [
   {
-    img: '/pics/image1.png',
+    img: '/pics/img-d.jpg',
     title: 'Numerology',
     desc: 'A Structured method to decode your birthdate revealing career paths, relationships patterns & life purpose.',
     link: '/numerology',
@@ -113,7 +113,7 @@ const services = [
     accent: '#ec4899',
   },
   {
-    img: '/pics/image3.png',
+    img: '/pics/img-c.jpg',
     title: 'Meditation & Breathwork',
     desc: 'Guided practice using classical pranayama and meditation to release stress, reset your nervous system and restore inner calm.',
     link: '/meditation-breathwork',
