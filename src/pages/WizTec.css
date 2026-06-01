@@ -1,0 +1,192 @@
+.wiztec-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* ── Hero ── */
+.wiztec-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 140px 0 100px;
+  text-align: center;
+}
+.wiztec-hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+}
+.wiztec-hero-glow--red {
+  width: 500px; height: 500px;
+  top: -100px; left: -80px;
+  background: rgba(220, 38, 38, 0.12);
+}
+.wiztec-hero-glow--purple {
+  width: 400px; height: 400px;
+  bottom: -80px; right: -60px;
+  background: rgba(123, 47, 242, 0.14);
+}
+.wiztec-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+.wiztec-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.wiztec-brand {
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+.wiztec-red {
+  color: #e02020;
+}
+.wiztec-tagline {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+.wiztec-sub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+/* ── Team ── */
+.wiztec-team-section {
+  padding: 100px 0;
+  background: var(--bg-secondary);
+}
+.wiztec-section-label {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e02020;
+  margin-bottom: 12px;
+}
+.wiztec-section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+.wiztec-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+}
+.wiztec-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.wiztec-card:hover {
+  border-color: rgba(220, 38, 38, 0.4);
+  transform: translateY(-4px);
+}
+.wiztec-avatar {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(123,47,242,0.1));
+}
+.wiztec-card-body {
+  flex: 1;
+}
+.wiztec-card-role {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #e02020;
+  margin-bottom: 4px;
+}
+.wiztec-card-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+.wiztec-card-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* ── Mission ── */
+.wiztec-mission {
+  padding: 100px 0;
+}
+.wiztec-mission-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.wiztec-mission-divider {
+  width: 60px;
+  height: 3px;
+  background: #e02020;
+  margin: 0 auto 48px;
+  border-radius: 2px;
+}
+.wiztec-mission-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+.wiztec-cta-block {
+  margin: 48px 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.wiztec-cta-text {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin: 0;
+}
+.wiztec-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #e02020;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s;
+}
+.wiztec-cta-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+}
+.wiztec-closing {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #e02020;
+  font-style: italic;
+  margin: 0;
+}

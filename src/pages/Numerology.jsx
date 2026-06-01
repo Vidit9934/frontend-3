@@ -6,16 +6,17 @@ const whoIHelp = [
   { icon: <TbBriefcase />, title: 'Professionals', desc: 'At a career crossroads and needing clarity on direction, timing and next moves.' },
   { icon: <TbCompass />,   title: 'Students',     desc: 'Unsure of their path and looking to understand their natural strengths and purpose.' },
   { icon: <TbUsers />,     title: 'Business Owners', desc: 'Building strong teams and making aligned decisions through numerological insight.' },
-  { icon: <TbHeart />,     title: 'Couples & Families', desc: 'Understanding compatibility, communication patterns, and relationship dynamics.' },
+  { icon: <TbHeart />,     title: 'Couples & Families', desc: 'Understanding compatibility, communication patterns and relationship dynamics.' },
 ]
 
 const faqItems = [
   { q: 'What type of numerology do you practice?', a: 'I combine Vedic and Chinese numerology with grid-based profiling for a comprehensive character and life-path analysis that goes deeper than traditional methods.' },
   { q: 'Do I need to prepare anything before a session?', a: 'Just your full birthdate and the name on your birth certificate. No prior knowledge of numerology is needed — I guide you through everything.' },
-  { q: 'Is this about predicting the future?', a: 'Not at all. Numerology reveals patterns, tendencies and timing in your life. It helps you make better-informed decisions rather than telling you what will happen.' },
+  { q: 'Is this about predicting the future?', a: 'Not at all. Numerology reveals patterns tendencies and timing in your life. It helps you make better-informed decisions rather than telling you what will happen.' },
   { q: 'How long is a session?', a: 'A typical numerology session runs 60–90 minutes. It\'s thorough and personalized — not a generic reading.' },
   { q: 'Can numerology help with my child\'s education decisions?', a: 'Absolutely. Understanding your child\'s numerical profile can reveal their natural strengths, learning style and what kind of environment helps them thrive.' },
   { q: 'Is this available online?', a: 'Yes, sessions are available both in-person (Singapore) and via video call for clients anywhere in the world.' },
+  { q: 'What is the session fee?', a: 'Sessions are priced at $96 and typically last one hour. If the conversation naturally runs longer or includes an additional person, that can be discussed and arranged during the session itself.' },
 ]
 
 export default function Numerology() {
@@ -48,16 +49,16 @@ export default function Numerology() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 This isn't just number crunching. It's deep character analysis — designed to reveal
-                your personality patterns, natural strengths, emotional tendencies and even the timing
+                your personality patterns natural strengths, emotional tendencies and even the timing
                 of key life events. My custom-designed grids blend numerology with character archetypes
                 and behavioural insights to map out your life cycles — giving you clarity on where you
-                are, what's influencing you, and what's coming next.
+                are, what's influencing you and what's coming next.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Whether you're a working professional at a career crossroads, a student unsure of your
                 direction, or a business owner looking to build a strong team, numerology offers
                 something powerful insight. I help individuals understand their core energies, pinpoint
-                hidden challenges, and align with their strengths to make more confident, purpose-driven
+                hidden challenges and align with their strengths to make more confident, purpose-driven
                 decisions.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>

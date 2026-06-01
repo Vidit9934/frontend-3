@@ -102,6 +102,19 @@
   box-shadow: 0 6px 20px rgba(123, 47, 242, 0.4);
 }
 
+.footer-wiztec-link {
+  margin-top: 8px;
+  color: #e02020 !important;
+  font-size: 0.88rem !important;
+  text-decoration: none;
+}
+.footer-wiztec-link:hover {
+  color: #ff4444 !important;
+}
+.footer-wiztec-link svg {
+  color: #e02020;
+}
+
 .footer-bottom {
   border-top: 1px solid var(--border-subtle);
   padding: 24px 0;

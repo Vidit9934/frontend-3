@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaWhatsapp, FaEnvelope, FaInstagram, FaFacebookF, FaYoutube } from 'react-icons/fa'
+import { FaWhatsapp, FaEnvelope, FaInstagram, FaFacebookF, FaYoutube, FaGlobe } from 'react-icons/fa'
 import logo from '../assets/logo.png'
 import './Footer.css'
 
@@ -33,6 +33,9 @@ export default function Footer() {
             <a href="mailto:sharan.mylifechoices@gmail.com" className="footer-contact-item">
               <FaEnvelope /> sharan.mylifechoices@gmail.com
             </a>
+            <Link to="/wiztec" className="footer-contact-item footer-wiztec-link">
+              <FaGlobe /> <span><strong>WizTec</strong> — We Re-Incarnate You on the Web</span>
+            </Link>
             <div className="footer-socials">
               <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><FaInstagram /></a>
               <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FaFacebookF /></a>
