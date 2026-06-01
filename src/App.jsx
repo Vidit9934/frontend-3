@@ -14,6 +14,7 @@ import About from './pages/About'
 import ComingSoon from './pages/ComingSoon'
 import Books from './pages/Books'
 import Fees from './pages/Fees'
+import Admin from './pages/Admin'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -24,6 +25,11 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+  const isAdmin = pathname === '/secretadmin'
+
+  if (isAdmin) return <Admin />
+
   return (
     <>
       <div className="stars-bg" />

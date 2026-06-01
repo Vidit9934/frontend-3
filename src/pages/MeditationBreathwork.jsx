@@ -12,8 +12,8 @@ const whyJoin = [
 
 const faqItems = [
   { q: 'Do I need prior meditation or yoga experience?', a: 'Not at all. Sessions are designed to meet you where you are — whether you\'re a complete beginner or have an existing practice. I guide you through every step.' },
-  { q: 'What techniques do you teach?', a: 'I draw from classical practices including Pranayama, Yoga Nidra, Bhastrika, Kapalabhati, Anuloma Viloma, and Vedic Mantra Meditation — tailored to what your body and mind need.' },
-  { q: 'How quickly will I feel results?', a: 'Many clients feel a noticeable shift after the very first session — calmer mind, deeper breathing, and reduced tension. Lasting transformation builds with consistent practice.' },
+  { q: 'What techniques do you teach?', a: 'I draw from classical practices including Pranayama, Yoga Nidra, Bhastrika, Kapalabhati, Anuloma Viloma and Vedic Mantra Meditation — tailored to what your body and mind need.' },
+  { q: 'How quickly will I feel results?', a: 'Many clients feel a noticeable shift after the very first session — calmer mind, deeper breathing and reduced tension. Lasting transformation builds with consistent practice.' },
   { q: 'Is this available as a group session?', a: 'Yes, both private one-on-one sessions and small group sessions are available. Group sessions are great for couples, families, or small teams.' },
   { q: 'Can breathwork help with sleep issues?', a: 'Absolutely. Specific pranayama and yoga nidra techniques are highly effective for insomnia, restless sleep, and difficulty winding down at night.' },
   { q: 'Are online sessions as effective as in-person?', a: 'Yes. The guided nature of these practices translates very well to video calls. Many of my regular clients attend exclusively online.' },
@@ -52,25 +52,25 @@ export default function MeditationBreathwork() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Through his Meditation & Yogic Breathwork sessions, Sharan guides you into a deeper
-                relationship with your body, mind, and subtle energy system. Trained in classical
-                techniques like Yoga Nidra, Pranayama, Bhastrika, Kapalabhati, Anuloma Viloma, and
+                relationship with your body, mind and subtle energy system. Trained in classical
+                techniques like Yoga Nidra, Pranayama, Bhastrika, Kapalabhati, Anuloma Viloma and
                 Vedic Mantra Meditation, Sharan combines breath and awareness to help you restore
                 vitality, clear internal blockages, and elevate your state of being.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Whether you're managing stress, recovering from burnout, or simply feeling emotionally
+                Whether you're managing stress, recovering from burnout or simply feeling emotionally
                 stuck — these techniques are proven to calm the nervous system, increase oxygen flow
-                to the brain, and enhance mental clarity.
+                to the brain and enhance mental clarity.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Each session includes breath-led grounding, subtle body awareness, and guided
+                Each session includes breath-led grounding, subtle body awareness and guided
                 meditation with sound (including mantra and vibration-based practices) to awaken
                 your energy centers — especially the Muladhara (root) Chakra, which governs
                 stability and vitality.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                You don't need experience, flexibility, or fancy gear. You just need a willingness
-                to sit, breathe, and tune inward.
+                You don't need experience, flexibility or fancy gear. You just need a willingness
+                to sit, breathe and tune inward.
               </p>
             </div>
           </div>
@@ -113,7 +113,7 @@ export default function MeditationBreathwork() {
         <div className="container">
           <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', marginBottom: 20 }}>
-              Sharan's approach is gentle, grounded, and accessible — whether you're seated in
+              Sharan's approach is gentle, grounded and accessible — whether you're seated in
               Padmasana or on a chair. It's not about perfection. It's about presence.
             </p>
             <p style={{ fontStyle: 'italic', color: 'var(--accent-gold)', fontSize: '1.15rem', lineHeight: 1.8, margin: 0 }}>

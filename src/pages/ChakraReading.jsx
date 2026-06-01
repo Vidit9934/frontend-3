@@ -49,12 +49,12 @@ export default function ChakraReading() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 This isn't just symbolic theory. It's a practical exploration of how your body,
-                emotions, and spirit are energetically wired — and how understanding that wiring
-                can bring clarity, calm, and strength into your daily life.
+                emotions and spirit are energetically wired — and how understanding that wiring
+                can bring clarity, calm and strength into your daily life.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Using a unique method that overlays numerology onto the Chakra system, I offer
-                insight into where your power is blocked, where it flows naturally, and how to
+                insight into where your power is blocked, where it flows naturallys and how to
                 realign with your core self.
               </p>
             </div>
@@ -95,15 +95,15 @@ export default function ChakraReading() {
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-              This work is rooted in over 1,000 hours of certified Hatha-Vinyasa Yoga training in
-              the Himalayas, and decades of dedicated pilgrimages to sacred temples across India and
+              His work is rooted in over 1000 hours of certified Hatha-Vinyasa Yoga training in
+              the Himalayas and decades of dedicated pilgrimages to sacred temples across India and
               Kathmandu — including the transformative experience of attending the Maha Kumbh, a
               powerful convergence of spiritual energies. It draws from a living lineage of ancient
               traditions, blending disciplined spiritual practice with research into ancient sciences
               and insights into energetic healing.
             </p>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-              Whether you're navigating emotional stress, repeating life patterns, or seeking a
+              Whether you're navigating emotional stress, repeating life patterns or seeking a
               deeper connection to self, this reading reveals what's already within you — and how
               to bring it into harmony.
             </p>

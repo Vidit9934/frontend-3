@@ -1,17 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaCalendarCheck, FaTimes } from 'react-icons/fa'
 import './BookSession.css'
 
-const timeSlots = ['1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM']
+const ALL_SLOTS = ['11:00 AM', '2:00 PM', '5:00 PM', '7:00 PM', '9:00 PM']
+
+function getAvailableSlots(dateStr) {
+  if (!dateStr) return ALL_SLOTS
+  try {
+    const avail = JSON.parse(localStorage.getItem('mlc_availability') || '{}')
+    const day = avail[dateStr]
+    if (!day) return ALL_SLOTS
+    return ALL_SLOTS.filter(slot => day[slot] !== false)
+  } catch { return ALL_SLOTS }
+}
+
+function saveBooking(data) {
+  try {
+    const bookings = JSON.parse(localStorage.getItem('mlc_bookings') || '[]')
+    bookings.push({ ...data, id: Date.now().toString(), createdAt: new Date().toISOString() })
+    localStorage.setItem('mlc_bookings', JSON.stringify(bookings))
+  } catch {}
+}
 
 export default function BookSession() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedSlot, setSelectedSlot] = useState('')
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', date: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [availableSlots, setAvailableSlots] = useState(ALL_SLOTS)
+
+  useEffect(() => {
+    setAvailableSlots(getAvailableSlots(formData.date))
+    setSelectedSlot('')
+  }, [formData.date])
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    saveBooking({ ...formData, slot: selectedSlot })
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
@@ -109,7 +134,10 @@ export default function BookSession() {
                   <div className="form-group">
                     <label>Preferred Time</label>
                     <div className="time-slots">
-                      {timeSlots.map((slot) => (
+                      {availableSlots.length === 0 ? (
+                          <p style={{ color: '#b0adc8', fontSize: '0.85rem' }}>No slots available for this date.</p>
+                        ) : null}
+                      {availableSlots.map((slot) => (
                         <button
                           type="button"
                           key={slot}

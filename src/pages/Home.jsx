@@ -4,9 +4,8 @@ import { FaArrowRight, FaStar, FaQuoteLeft, FaYoutube } from 'react-icons/fa'
 import { TbNumbers, TbGeometry, TbYoga, TbEye } from 'react-icons/tb'
 import './Home.css'
 
-// TODO: Replace with your actual YouTube video ID
-const YT_VIDEO_ID = 'YOUR_VIDEO_ID_HERE'
-const YT_WATCH_URL = `https://www.youtube.com/watch?v=${YT_VIDEO_ID}`
+const YT_VIDEO_ID = '68jC1sZJAkY'
+const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 // ── Slide components (defined outside to avoid re-mounting on every render) ──
 
@@ -21,6 +20,9 @@ function SlideVideo() {
             <FaYoutube style={{ color: '#ff4444', fontSize: '1.1rem' }} /> Featured Video
           </span>
           <h1 className="slide-title">Watch &amp; <span className="gradient-text">Discover</span></h1>
+          <p className="slide-tagline">
+            Get Peace, Clarity and Direction in Your Health, Relationships, Career and Money Matters.
+          </p>
           <p className="slide-desc">
             See how ancient numerology reveals the hidden blueprint of your life —
             in this exclusive video by Sharan.
@@ -31,7 +33,8 @@ function SlideVideo() {
         </div>
         <div className="slide-video-frame">
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${YT_VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${YT_VIDEO_ID}&controls=0&modestbranding=1&rel=0`}
+            id="yt-player"
+            src={`https://www.youtube-nocookie.com/embed/${YT_VIDEO_ID}?enablejsapi=1&controls=1&modestbranding=1&rel=0`}
             title="Featured video"
             allow="autoplay; encrypted-media"
             allowFullScreen
@@ -58,7 +61,7 @@ function SlideNumerology() {
         </h1>
         <p className="slide-desc slide-desc--center">
           Your birthdate holds the blueprint of your destiny. Decode the hidden
-          patterns shaping your career, relationships, and life purpose.
+          patterns shaping your career, relationships and life purpose.
         </p>
         <Link to="/numerology" className="btn-primary">
           Explore Numerology <FaArrowRight />
@@ -80,7 +83,7 @@ function SlideBook() {
         </h1>
         <p className="slide-desc slide-desc--center">
           One session can change everything. Book a personal consultation with Sharan
-          and discover your path to clarity, purpose, and peace.
+          and discover your path to clarity, purpose and peace.
         </p>
         <button
           className="btn-gold"
@@ -97,30 +100,30 @@ const SLIDES = 3
 
 const services = [
   {
-    icon: <TbNumbers />,
+    img: '/pics/image1.png',
     title: 'Numerology',
-    desc: 'Decode your birthdate to reveal career paths, relationship patterns, and life purpose.',
+    desc: 'A Structured method to decode your birthdate revealing career paths, relationships patterns & life purpose.',
     link: '/numerology',
     accent: '#7b2ff2',
   },
   {
-    icon: <TbGeometry />,
+    img: '/pics/image2.png',
     title: 'BioGeometry',
-    desc: 'Harmonize your spaces with geometric science to balance energy and reduce stress.',
+    desc: 'An energy-balancing science that uses geometric shapes to harmonize your home or workspace, balance personal energy, reduce stress.',
     link: '/biogeometry',
     accent: '#ec4899',
   },
   {
-    icon: <TbYoga />,
+    img: '/pics/image3.png',
     title: 'Meditation & Breathwork',
-    desc: 'Restore your nervous system through classical pranayama and guided meditation.',
+    desc: 'Guided practice using classical pranayama and meditation to release stress, reset your nervous system and restore inner calm.',
     link: '/meditation-breathwork',
     accent: '#d4a853',
   },
   {
-    icon: <TbEye />,
+    img: '/pics/image.png',
     title: 'Chakra Reading',
-    desc: 'Journey through your energy centers to unlock emotional clarity and personal power.',
+    desc: 'A structured journey through your energy centres to unlock emotional clarity & offer energetic balance.',
     link: '/chakra-reading',
     accent: '#06b6d4',
   },
@@ -159,21 +162,63 @@ export default function Home() {
   const [trackPos, setTrackPos] = useState(1)
   const [transEnabled, setTransEnabled] = useState(true)
   const timerRef = useRef(null)
+  const videoPlayingRef = useRef(false)
+  const startTimerRef = useRef(null)
 
   // Which dot lights up (0-indexed)
   const activeDot = ((trackPos - 1) % SLIDES + SLIDES) % SLIDES
 
   const startTimer = () => {
     clearInterval(timerRef.current)
+    if (videoPlayingRef.current) return  // don't slide while video is playing
     timerRef.current = setInterval(() => {
       setTransEnabled(true)
       setTrackPos(prev => prev + 1)
     }, 5000)
   }
 
+  // Keep ref fresh to avoid stale closure in YT callback
+  useEffect(() => { startTimerRef.current = startTimer })
+
   useEffect(() => {
     startTimer()
     return () => clearInterval(timerRef.current)
+  }, [])
+
+  // YouTube IFrame API — pause auto-slide while video plays, resume on pause/end
+  useEffect(() => {
+    const setupPlayer = () => {
+      new window.YT.Player('yt-player', {
+        events: {
+          onStateChange: (e) => {
+            if (e.data === 1) { // PLAYING
+              videoPlayingRef.current = true
+              clearInterval(timerRef.current)
+            } else { // PAUSED (2), ENDED (0), BUFFERING (3)
+              videoPlayingRef.current = false
+              startTimerRef.current?.()
+            }
+          },
+        },
+      })
+    }
+
+    if (window.YT && window.YT.Player) {
+      setupPlayer()
+    } else {
+      if (!document.getElementById('yt-api-script')) {
+        const tag = document.createElement('script')
+        tag.id = 'yt-api-script'
+        tag.src = 'https://www.youtube.com/iframe_api'
+        document.head.appendChild(tag)
+      }
+      window.onYouTubeIframeAPIReady = setupPlayer
+    }
+
+    return () => {
+      if (window.onYouTubeIframeAPIReady === setupPlayer)
+        delete window.onYouTubeIframeAPIReady
+    }
   }, [])
 
   // After transition finishes on a clone, snap to the real slide
@@ -244,8 +289,8 @@ export default function Home() {
             {services.map((s, i) => (
               <Link to={s.link} key={i} className="service-card">
                 <div className="service-card-glow" style={{ background: s.accent }} />
-                <div className="service-icon" style={{ color: s.accent }}>
-                  {s.icon}
+                <div className="service-icon">
+                  <img src={s.img} alt={s.title} />
                 </div>
                 <h3>{s.title}</h3>
                 <p>{s.desc}</p>
@@ -294,7 +339,7 @@ export default function Home() {
             <div className="cta-glow" />
             <span className="section-label">Take the First Step</span>
             <h2>Ready to Discover <span className="gradient-text">Your Path</span>?</h2>
-            <p>Book a session and begin your journey toward clarity, purpose, and inner peace.</p>
+            <p>Book a session and begin your journey toward clarity, purpose and inner peace.</p>
             <div className="cta-actions">
               <Link to="/retreats" className="btn-gold">
                 Explore the Retreat <FaArrowRight />

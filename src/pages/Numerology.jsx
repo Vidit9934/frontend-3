@@ -3,7 +3,7 @@ import { TbNumbers, TbBriefcase, TbHeart, TbCompass, TbUsers } from 'react-icons
 import './ServicePage.css'
 
 const whoIHelp = [
-  { icon: <TbBriefcase />, title: 'Professionals', desc: 'At a career crossroads and needing clarity on direction, timing, and next moves.' },
+  { icon: <TbBriefcase />, title: 'Professionals', desc: 'At a career crossroads and needing clarity on direction, timing and next moves.' },
   { icon: <TbCompass />,   title: 'Students',     desc: 'Unsure of their path and looking to understand their natural strengths and purpose.' },
   { icon: <TbUsers />,     title: 'Business Owners', desc: 'Building strong teams and making aligned decisions through numerological insight.' },
   { icon: <TbHeart />,     title: 'Couples & Families', desc: 'Understanding compatibility, communication patterns, and relationship dynamics.' },
@@ -12,9 +12,9 @@ const whoIHelp = [
 const faqItems = [
   { q: 'What type of numerology do you practice?', a: 'I combine Vedic and Chinese numerology with grid-based profiling for a comprehensive character and life-path analysis that goes deeper than traditional methods.' },
   { q: 'Do I need to prepare anything before a session?', a: 'Just your full birthdate and the name on your birth certificate. No prior knowledge of numerology is needed — I guide you through everything.' },
-  { q: 'Is this about predicting the future?', a: 'Not at all. Numerology reveals patterns, tendencies, and timing in your life. It helps you make better-informed decisions rather than telling you what will happen.' },
+  { q: 'Is this about predicting the future?', a: 'Not at all. Numerology reveals patterns, tendencies and timing in your life. It helps you make better-informed decisions rather than telling you what will happen.' },
   { q: 'How long is a session?', a: 'A typical numerology session runs 60–90 minutes. It\'s thorough and personalized — not a generic reading.' },
-  { q: 'Can numerology help with my child\'s education decisions?', a: 'Absolutely. Understanding your child\'s numerical profile can reveal their natural strengths, learning style, and what kind of environment helps them thrive.' },
+  { q: 'Can numerology help with my child\'s education decisions?', a: 'Absolutely. Understanding your child\'s numerical profile can reveal their natural strengths, learning style and what kind of environment helps them thrive.' },
   { q: 'Is this available online?', a: 'Yes, sessions are available both in-person (Singapore) and via video call for clients anywhere in the world.' },
 ]
 
@@ -40,10 +40,7 @@ export default function Numerology() {
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Numerology</p>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', marginBottom: 40, fontWeight: 700, textAlign: 'left', lineHeight: 1.3 }}>
-              What If Your Birthdate Held the Clues to Your Career, Relationships{' '}
-              <span className="gradient-text">and Life Purpose?</span>
-            </h2>
+            
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 As a professional numerologist, I combine the precision of ancient Vedic and Chinese
@@ -51,7 +48,7 @@ export default function Numerology() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 This isn't just number crunching. It's deep character analysis — designed to reveal
-                your personality patterns, natural strengths, emotional tendencies, and even the timing
+                your personality patterns, natural strengths, emotional tendencies and even the timing
                 of key life events. My custom-designed grids blend numerology with character archetypes
                 and behavioural insights to map out your life cycles — giving you clarity on where you
                 are, what's influencing you, and what's coming next.
@@ -59,19 +56,19 @@ export default function Numerology() {
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Whether you're a working professional at a career crossroads, a student unsure of your
                 direction, or a business owner looking to build a strong team, numerology offers
-                something powerful: insight. I help individuals understand their core energies, pinpoint
+                something powerful insight. I help individuals understand their core energies, pinpoint
                 hidden challenges, and align with their strengths to make more confident, purpose-driven
                 decisions.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 My sessions also dive into relationship dynamics — whether it's between partners,
-                parents and children, or team members — offering practical understanding of compatibility
+                parents and children or team members — offering practical understanding of compatibility
                 and communication patterns.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                This work is not abstract. It's grounded, logical, and directly applicable to real life.
+                This work is not abstract. It's grounded, logical and directly applicable to real life.
                 Clients leave our sessions feeling clearer about their direction, more confident in their
-                decisions, and better equipped to handle life's transitions.
+                decisions and better equipped to handle life's transitions.
               </p>
 
               <blockquote style={{

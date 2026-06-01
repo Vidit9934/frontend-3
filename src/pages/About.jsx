@@ -19,7 +19,7 @@ export default function About() {
         <div className="container">
           <div className="about-img-wrap">
             <img
-              src="https://placehold.co/1200x675?text=Sharan"
+              src="/pics/about sharan picture.jpg"
               alt="Sharan — Master LifeChoice Analyst"
               className="about-portrait"
             />
@@ -37,17 +37,17 @@ export default function About() {
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Sharan is a holistic guide and certified practitioner of Chinese and Vedic numerology,
+                Sharan is a holistic guide and certified practitioner of Chinese and Vedic numerology
                 as well as Egyptian and Yogic sciences of frequency and healing. He helps individuals
-                and business owners navigate critical life decisions with clarity and confidence, using
+                and business owners navigate critical life decisions with clarity and confidence using
                 ancient wisdom, practical insights, and precision-based tools.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Having trained under Master Teachers across India and beyond, Sharan integrates his
-                life experience, research mindset, military discipline, and energetic mastery to help
-                people restore balance, find purpose, and unlock real-world results. From business
+                life experience, research mindset, military discipline and energetic mastery to help
+                people restore balance, find purpose and unlock real-world results. From business
                 owners, homeowners, and high-performing professionals to parents seeking guidance for
-                their children, Sharan's sessions are known to bring peace, direction, and inner alignment.
+                their children, Sharan's sessions are known to bring peace, direction and inner alignment.
               </p>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function About() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I've walked a path most would never imagine — first as a military officer, an elite
-                operations specialist, and now as a guide, helping people unlock their clarity and
+                operations specialist and now as a guide, helping people unlock their clarity and
                 purpose through ancient wisdom and modern energy work.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
@@ -155,9 +155,9 @@ export default function About() {
               "Clarity isn't a luxury — it's your birthright."
             </p>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.75, fontSize: '1rem' }}>
-              Whether you're a parent, professional, student, or seeker — my mission is simple:
-              to guide you back to your core. Not by predicting your future, but by helping you
-              create it — with precision, confidence, and peace of mind.
+              Whether you're a parent, professional, student or seeker — my mission is simple:
+              to guide you back to your core. Not by predicting your future but by helping you
+              create it — with precision, confidence and peace of mind.
             </p>
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function About() {
         <div className="container">
           <div className="cta-box">
             <h2>Ready to Begin Your <span className="gradient-text">Journey</span>?</h2>
-            <p>Take the first step toward clarity, purpose, and inner peace.</p>
+            <p>Take the first step toward clarity, purpose and inner peace.</p>
             <Link to="/retreats" className="btn-primary">
               <span>Explore the Retreat</span> <FaArrowRight />
             </Link>

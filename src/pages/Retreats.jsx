@@ -15,6 +15,11 @@ export default function Retreats() {
           <p className="fade-in fade-in-delay-1">
             A 10-day immersive yoga and life clarity retreat in Rishikesh, India.
           </p>
+          <p className="fade-in fade-in-delay-2" style={{ marginTop: '16px', color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.8 }}>
+            Intake limited<br />
+            Retreat Date: June, July, August 2026<br />
+            2nd Friday of every month — Call for dates.
+          </p>
         </div>
       </section>
 
@@ -60,7 +65,7 @@ export default function Retreats() {
                 but understand how to apply it with clarity and stability in daily modern living.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                My aim for everyone participating in this retreat is to leave grounded, clear, and
+                My aim for everyone participating in this retreat is to leave grounded, clear and
                 equipped with practices and understanding they can carry forward long after returning home.
               </p>
               <div style={{ marginTop: 12 }}>

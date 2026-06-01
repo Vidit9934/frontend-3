@@ -34,7 +34,7 @@ export default function FAQ({ items }) {
         <div className="faq-cta">
           <p>Still confused?</p>
           <button className="btn-primary" onClick={() => setShowContact(true)}>
-            <span>Contact Us (No Charges)</span>
+            <span>Contact Us</span>
           </button>
         </div>
       </div>
