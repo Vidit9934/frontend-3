@@ -9,7 +9,7 @@ const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 // ── Slide components (defined outside to avoid re-mounting on every render) ──
 
-function SlideVideo() {
+function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute }) {
   return (
     <div className="carousel-slide slide-video">
       <div className="slide-orb slide-orb--purple" />
@@ -31,14 +31,13 @@ function SlideVideo() {
             Watch on YouTube <FaArrowRight />
           </a>
         </div>
-        <div className="slide-video-frame">
-          <iframe
-            id="yt-player"
-            src={`https://www.youtube-nocookie.com/embed/${YT_VIDEO_ID}?enablejsapi=1&controls=1&modestbranding=1&rel=0`}
-            title="Featured video"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          />
+        <div className="slide-video-frame" style={{ position: 'relative' }}>
+          <div id={playerId} />
+          {isMuted && onUnmute && (
+            <button className="yt-unmute-btn" onClick={onUnmute} aria-label="Unmute video">
+              🔇 Tap to Unmute
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -161,9 +160,11 @@ export default function Home() {
   // trackPos: 0=Book(clone) | 1=Video | 2=Numerology | 3=Book | 4=Video(clone)
   const [trackPos, setTrackPos] = useState(1)
   const [transEnabled, setTransEnabled] = useState(true)
+  const [isMuted, setIsMuted] = useState(true)
   const timerRef = useRef(null)
   const videoPlayingRef = useRef(false)
   const startTimerRef = useRef(null)
+  const ytPlayerRef = useRef(null)
 
   // Which dot lights up (0-indexed)
   const activeDot = ((trackPos - 1) % SLIDES + SLIDES) % SLIDES
@@ -188,16 +189,28 @@ export default function Home() {
   // YouTube IFrame API — pause auto-slide while video plays, resume on pause/end
   useEffect(() => {
     const setupPlayer = () => {
-      new window.YT.Player('yt-player', {
+      ytPlayerRef.current = new window.YT.Player('yt-player', {
+        videoId: YT_VIDEO_ID,
+        width: '100%',
+        height: '100%',
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 1,
+          modestbranding: 1,
+          rel: 0,
+          playsinline: 1,
+        },
         events: {
           onStateChange: (e) => {
             if (e.data === 1) { // PLAYING
               videoPlayingRef.current = true
               clearInterval(timerRef.current)
-            } else { // PAUSED (2), ENDED (0), BUFFERING (3)
+            } else if (e.data === 2 || e.data === 0) { // PAUSED or ENDED only
               videoPlayingRef.current = false
               startTimerRef.current?.()
             }
+            // BUFFERING (3) — keep timer paused, do nothing
           },
         },
       })
@@ -257,10 +270,10 @@ export default function Home() {
           }}
         >
           <SlideBook />       {/* clone — position 0 */}
-          <SlideVideo />      {/* real  — position 1 */}
+          <SlideVideo isMuted={isMuted} onUnmute={() => { ytPlayerRef.current?.unMute(); ytPlayerRef.current?.setVolume(100); setIsMuted(false) }} /> {/* real — position 1 */}
           <SlideNumerology /> {/* real  — position 2 */}
           <SlideBook />       {/* real  — position 3 */}
-          <SlideVideo />      {/* clone — position 4 */}
+          <SlideVideo playerId="yt-player-clone" /> {/* clone — position 4, no player */}
         </div>
 
         {/* Dots */}

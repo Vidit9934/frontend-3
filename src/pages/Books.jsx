@@ -3,15 +3,15 @@ import { TbBook } from 'react-icons/tb'
 import './ServicePage.css'
 
 const books = [
-  { id: 1, title: 'The Numbers Say So', subtitle: 'Idealistic Innovator', cover: '/books/book-1.jpg' },
-  { id: 2, title: 'The Numbers Say So', subtitle: 'Pragmatic Negotiator', cover: '/books/book-2.jpg' },
-  { id: 3, title: 'The Numbers Say So', subtitle: 'Realistic Taskmaster', cover: '/books/book-3.jpg' },
-  { id: 4, title: 'The Numbers Say So', subtitle: 'Idealistic Strategist', cover: '/books/book-4.jpg' },
-  { id: 5, title: 'The Numbers Say So', subtitle: 'Pragmatic Architect', cover: '/books/book-5.jpg' },
-  { id: 6, title: 'The Numbers Say So', subtitle: 'Realistic Protector', cover: '/books/book-6.jpg' },
-  { id: 7, title: 'The Numbers Say So', subtitle: 'Idealistic Spiritulist', cover: '/books/book-7.jpg' },
-  { id: 8, title: 'The Numbers Say So', subtitle: 'Pragmatic Commander', cover: '/books/book-8.jpg' },
-  { id: 9, title: 'The Numbers Say So', subtitle: 'Realistic Creator', cover: '/books/book-9.jpg' },
+  { id: 1, title: 'The Numbers Say So', subtitle: 'Idealistic Innovator',  cover: '/pics/BOOK 1 copy.jpg' },
+  { id: 2, title: 'The Numbers Say So', subtitle: 'Pragmatic Negotiator',  cover: '/pics/BOOK 2 copy.jpg' },
+  { id: 3, title: 'The Numbers Say So', subtitle: 'Realistic Taskmaster',  cover: '/pics/BOOK 3 copy.jpg' },
+  { id: 4, title: 'The Numbers Say So', subtitle: 'Idealistic Strategist', cover: '/pics/BOOK 4 copy.jpg' },
+  { id: 5, title: 'The Numbers Say So', subtitle: 'Pragmatic Architect',   cover: '/pics/BOOK 5 copy.jpg' },
+  { id: 6, title: 'The Numbers Say So', subtitle: 'Realistic Protector',   cover: '/pics/BOOK 6 copy.jpg' },
+  { id: 7, title: 'The Numbers Say So', subtitle: 'Idealistic Spiritulist',cover: '/pics/BOOK 7 copy.jpg' },
+  { id: 8, title: 'The Numbers Say So', subtitle: 'Pragmatic Commander',   cover: '/pics/BOOK 8 copy.jpg' },
+  { id: 9, title: 'The Numbers Say So', subtitle: 'Realistic Creator',     cover: '/pics/BOOK 9 copy.jpg' },
 ]
 
 export default function Books() {
