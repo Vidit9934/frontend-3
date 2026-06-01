@@ -9,7 +9,7 @@ const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 // ── Slide components (defined outside to avoid re-mounting on every render) ──
 
-function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute }) {
+function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute, containerRef }) {
   return (
     <div className="carousel-slide slide-video">
       <div className="slide-orb slide-orb--purple" />
@@ -31,7 +31,7 @@ function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute }) {
             Watch on YouTube <FaArrowRight />
           </a>
         </div>
-        <div className="slide-video-frame" style={{ position: 'relative' }}>
+        <div className="slide-video-frame" style={{ position: 'relative' }} ref={containerRef}>
           <div id={playerId} />
           {isMuted && onUnmute && (
             <button className="yt-unmute-btn" onClick={onUnmute} aria-label="Unmute video">
@@ -165,6 +165,7 @@ export default function Home() {
   const videoPlayingRef = useRef(false)
   const startTimerRef = useRef(null)
   const ytPlayerRef = useRef(null)
+  const ytContainerRef = useRef(null)
 
   // Which dot lights up (0-indexed)
   const activeDot = ((trackPos - 1) % SLIDES + SLIDES) % SLIDES
@@ -270,7 +271,39 @@ export default function Home() {
           }}
         >
           <SlideBook />       {/* clone — position 0 */}
-          <SlideVideo isMuted={isMuted} onUnmute={() => { ytPlayerRef.current?.unMute(); ytPlayerRef.current?.setVolume(100); setIsMuted(false) }} /> {/* real — position 1 */}
+          <SlideVideo
+            isMuted={isMuted}
+            containerRef={ytContainerRef}
+            onUnmute={() => {
+              // player.unMute() via postMessage is blocked cross-origin — destroy & recreate instead
+              const t = ytPlayerRef.current?.getCurrentTime?.() || 0
+              try { ytPlayerRef.current?.destroy?.() } catch(e) {}
+              // Re-insert target div (YT destroy() removes it)
+              if (ytContainerRef.current) {
+                const div = document.createElement('div')
+                div.id = 'yt-player'
+                ytContainerRef.current.insertBefore(div, ytContainerRef.current.firstChild)
+              }
+              // New player created from user-gesture context → browser allows audio
+              ytPlayerRef.current = new window.YT.Player('yt-player', {
+                videoId: YT_VIDEO_ID,
+                width: '100%',
+                height: '100%',
+                playerVars: {
+                  autoplay: 1, mute: 0, controls: 1,
+                  modestbranding: 1, rel: 0, playsinline: 1,
+                  ...(Math.floor(t) > 0 ? { start: Math.floor(t) } : {}),
+                },
+                events: {
+                  onStateChange: (e) => {
+                    if (e.data === 1) { videoPlayingRef.current = true; clearInterval(timerRef.current) }
+                    else if (e.data === 2 || e.data === 0) { videoPlayingRef.current = false; startTimerRef.current?.() }
+                  },
+                },
+              })
+              setIsMuted(false)
+            }}
+          /> {/* real — position 1 */}
           <SlideNumerology /> {/* real  — position 2 */}
           <SlideBook />       {/* real  — position 3 */}
           <SlideVideo playerId="yt-player-clone" /> {/* clone — position 4, no player */}
