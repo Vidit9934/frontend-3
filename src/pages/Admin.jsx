@@ -42,6 +42,7 @@ export default function Admin() {
   const availCacheRef = useRef({})
   const bookingsFetchedRef = useRef(false)
   const galleryFetchedRef = useRef(false)
+  const retreatsFetchedRef = useRef(false)
 
   // Gallery state
   const [galleryItems, setGalleryItems] = useState([])
@@ -50,6 +51,14 @@ export default function Admin() {
   const [galleryTitle, setGalleryTitle] = useState('')
   const [galleryFile, setGalleryFile] = useState(null)
   const [galleryPreview, setGalleryPreview] = useState(null)
+
+  // Retreats gallery state
+  const [retreatItems, setRetreatItems] = useState([])
+  const [loadingRetreats, setLoadingRetreats] = useState(false)
+  const [uploadingRetreat, setUploadingRetreat] = useState(false)
+  const [retreatTitle, setRetreatTitle] = useState('')
+  const [retreatFile, setRetreatFile] = useState(null)
+  const [retreatPreview, setRetreatPreview] = useState(null)
 
   const weekDates = getWeekDates(weekOffset)
   const todayStr = toDateStr(new Date())
@@ -110,7 +119,7 @@ export default function Admin() {
     setLoadingGallery(true)
     try {
       const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
-      setGalleryItems(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+      setGalleryItems(snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(d => d.type !== 'retreat'))
       galleryFetchedRef.current = true
     } finally {
       setLoadingGallery(false)
@@ -120,6 +129,21 @@ export default function Admin() {
   useEffect(() => {
     if (authed && tab === 'gallery' && !galleryFetchedRef.current) fetchGallery()
   }, [authed, tab, fetchGallery])
+
+  const fetchRetreats = useCallback(async () => {
+    setLoadingRetreats(true)
+    try {
+      const snap = await getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
+      setRetreatItems(snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(d => d.type === 'retreat'))
+      retreatsFetchedRef.current = true
+    } finally {
+      setLoadingRetreats(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (authed && tab === 'retreats' && !retreatsFetchedRef.current) fetchRetreats()
+  }, [authed, tab, fetchRetreats])
 
   const handleGalleryFileChange = (e) => {
     const file = e.target.files[0]
@@ -163,6 +187,54 @@ export default function Admin() {
     try {
       await deleteDoc(doc(db, 'gallery', id))
       setGalleryItems(prev => prev.filter(g => g.id !== id))
+    } catch {
+      alert('Delete failed.')
+    }
+  }
+
+  const handleRetreatFileChange = (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+    setRetreatFile(file)
+    setRetreatPreview(URL.createObjectURL(file))
+  }
+
+  const handleRetreatUpload = async (e) => {
+    e.preventDefault()
+    if (!retreatFile || !retreatTitle.trim()) return
+    setUploadingRetreat(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', retreatFile)
+      fd.append('upload_preset', 'ml_default')
+      const res = await fetch('https://api.cloudinary.com/v1_1/dbb5nj0ht/image/upload', {
+        method: 'POST', body: fd,
+      })
+      const data = await res.json()
+      if (!data.secure_url) throw new Error(data.error?.message || 'Upload failed')
+      const docRef = await addDoc(collection(db, 'gallery'), {
+        url: data.secure_url,
+        title: retreatTitle.trim(),
+        type: 'retreat',
+        createdAt: new Date().toISOString(),
+      })
+      setRetreatItems(prev => [{ id: docRef.id, url: data.secure_url, title: retreatTitle.trim(), createdAt: new Date().toISOString() }, ...prev])
+      setRetreatTitle('')
+      setRetreatFile(null)
+      setRetreatPreview(null)
+      e.target.reset()
+    } catch (err) {
+      alert('Upload failed: ' + err.message)
+    } finally {
+      setUploadingRetreat(false)
+    }
+  }
+
+  const handleRetreatDelete = async (id) => {
+    if (!window.confirm('Remove this image from the retreat gallery?')) return
+    try {
+      await deleteDoc(doc(db, 'gallery', id))
+      setRetreatItems(prev => prev.filter(r => r.id !== id))
     } catch {
       alert('Delete failed.')
     }
@@ -292,6 +364,12 @@ export default function Admin() {
           onClick={() => setTab('gallery')}
         >
           🖼️ Gallery
+        </button>
+        <button
+          className={`admin-tab-btn ${tab === 'retreats' ? 'active' : ''}`}
+          onClick={() => setTab('retreats')}
+        >
+          🏔️ Retreats
         </button>
       </div>
 
@@ -508,6 +586,70 @@ export default function Admin() {
                       </span>
                     </div>
                     <button className="clear-btn gallery-del-btn" onClick={() => handleGalleryDelete(g.id)}>Delete</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── RETREATS TAB ── */}
+        {tab === 'retreats' && (
+          <div className="gallery-admin-section">
+            <form className="gallery-upload-form" onSubmit={handleRetreatUpload}>
+              <h3 className="bookings-title" style={{ marginBottom: 16 }}>Upload Retreat Image</h3>
+              <div className="gallery-upload-row">
+                <input
+                  type="text"
+                  className="gallery-title-input"
+                  placeholder="Image title"
+                  value={retreatTitle}
+                  onChange={e => setRetreatTitle(e.target.value)}
+                  required
+                />
+                <label className="gallery-file-label">
+                  {retreatFile ? retreatFile.name : 'Choose image…'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleRetreatFileChange}
+                    required
+                    style={{ display: 'none' }}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="admin-primary-btn"
+                  style={{ width: 'auto', marginTop: 0, padding: '10px 24px' }}
+                  disabled={uploadingRetreat || !retreatFile || !retreatTitle.trim()}
+                >
+                  {uploadingRetreat ? 'Uploading…' : 'Upload'}
+                </button>
+              </div>
+              {retreatPreview && (
+                <img src={retreatPreview} className="gallery-preview-img" alt="preview" />
+              )}
+            </form>
+
+            {loadingRetreats ? (
+              <p style={{ color: '#b0adc8', textAlign: 'center', padding: '40px 0' }}>Loading retreat images…</p>
+            ) : retreatItems.length === 0 ? (
+              <div className="empty-bookings">
+                <p>No retreat images yet.</p>
+                <span>Uploaded images will appear on the Retreats page after the brochure.</span>
+              </div>
+            ) : (
+              <div className="gallery-admin-grid">
+                {retreatItems.map(r => (
+                  <div key={r.id} className="gallery-admin-card">
+                    <img src={r.url} alt={r.title} className="gallery-admin-img" />
+                    <div className="gallery-admin-info">
+                      <span className="gallery-admin-title">{r.title}</span>
+                      <span className="gallery-admin-date">
+                        {new Date(r.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </span>
+                    </div>
+                    <button className="clear-btn gallery-del-btn" onClick={() => handleRetreatDelete(r.id)}>Delete</button>
                   </div>
                 ))}
               </div>

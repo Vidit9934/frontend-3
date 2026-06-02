@@ -24,9 +24,6 @@ export default function MeditationBreathwork() {
     <>
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg6.png)', backgroundSize: 'cover', backgroundPosition: 'center top' }}>
         <div className="container hero-content">
-          <div className="hero-icon-wrap">
-            <TbYoga />
-          </div>
           <h1 className="fade-in">
             Meditation & Yogic <span className="gradient-text">Breathwork</span>
           </h1>
@@ -37,7 +34,7 @@ export default function MeditationBreathwork() {
       </section>
 
       {/* Main content */}
-      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Breathwork</p>
@@ -78,7 +75,7 @@ export default function MeditationBreathwork() {
       </section>
 
       {/* Why Join */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <h2 className="section-title">Why <span className="gradient-text">Join?</span></h2>
           <p className="section-subtitle">What each session brings to your body, mind and life</p>
@@ -109,7 +106,7 @@ export default function MeditationBreathwork() {
       </section>
 
       {/* Closing */}
-      <section style={{ padding: '60px 0 80px', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '60px 0 80px', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', marginBottom: 20 }}>

@@ -38,7 +38,7 @@ export default function WizTec() {
     <div className="wiztec-page">
 
       {/* ── Hero ── */}
-      <section className="wiztec-hero">
+      <section className="wiztec-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="wiztec-hero-glow wiztec-hero-glow--red" />
         <div className="wiztec-hero-glow wiztec-hero-glow--purple" />
         <div className="container wiztec-hero-inner">
@@ -75,7 +75,7 @@ export default function WizTec() {
       </section>
 
       {/* ── Mission ── */}
-      <section className="wiztec-mission">
+      <section className="wiztec-mission" style={{ background: 'rgba(5,5,20,0.78)' }}>
         <div className="container wiztec-mission-inner">
           <div className="wiztec-mission-divider" />
           <p className="wiztec-mission-text">

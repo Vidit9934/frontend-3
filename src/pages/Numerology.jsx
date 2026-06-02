@@ -24,9 +24,6 @@ export default function Numerology() {
     <>
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg3.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
-          <div className="hero-icon-wrap">
-            <TbNumbers />
-          </div>
           <h1 className="fade-in">
             <span className="gradient-text">Numerology</span>
           </h1>
@@ -37,7 +34,7 @@ export default function Numerology() {
       </section>
 
       {/* Main content */}
-      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Numerology</p>
@@ -91,7 +88,7 @@ export default function Numerology() {
       </section>
 
       {/* Who I Help */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <h2 className="section-title">Who I <span className="gold-text">Help</span></h2>
           <p className="section-subtitle">Sessions tailored to where you are in life</p>

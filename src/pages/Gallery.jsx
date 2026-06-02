@@ -16,7 +16,7 @@ export default function Gallery() {
 
   return (
     <>
-      <section className="page-hero gallery-hero">
+      <section className="page-hero gallery-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container">
           <span className="section-label">Visual Journey</span>
           <h1>Gallery</h1>
@@ -24,7 +24,7 @@ export default function Gallery() {
         </div>
       </section>
 
-      <section className="gallery-section">
+      <section className="gallery-section" style={{ background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           {loading ? (
             <div className="gallery-loading">

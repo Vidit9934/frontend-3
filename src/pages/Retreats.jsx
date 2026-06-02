@@ -1,14 +1,22 @@
-import { TbMountain } from 'react-icons/tb'
+import { useState, useEffect } from 'react'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
+import { db } from '../firebase'
 import './ServicePage.css'
+import './Gallery.css'
 
 export default function Retreats() {
+  const [images, setImages] = useState([])
+  const [lightbox, setLightbox] = useState(null)
+
+  useEffect(() => {
+    getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
+      .then(snap => setImages(snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(d => d.type === 'retreat')))
+  }, [])
+
   return (
     <>
-      <section className="page-hero">
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
-          <div className="hero-icon-wrap">
-            <TbMountain />
-          </div>
           <h1 className="fade-in">
             <span className="gradient-text">Reset Your Life</span>
           </h1>
@@ -23,7 +31,7 @@ export default function Retreats() {
         </div>
       </section>
 
-      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Retreat</p>
@@ -33,7 +41,7 @@ export default function Retreats() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 For years, my life moved in many directions at once. Outwardly functional, inwardly
-                unsettled, I carried persistent questions about purpose, meaning and direction that
+                unsettled. I carried persistent questions about purpose, meaning and direction that
                 success alone could not answer.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
@@ -52,10 +60,10 @@ export default function Retreats() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Today, I work with people from around the world to help them live with greater
-                awareness, presence, and inner freedom.
+                awareness, presence and inner freedom.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Drawing from this body of work, and years of direct experience, I have worked closely
+                Drawing from this body of work and years of direct experience, I have worked closely
                 with the team at Maharishi Yoga Peeth to design this specialised 10-day on-site
                 retreat in Rishikesh as a deliberate confluence of ancient yogic disciplines and
                 contemporary interpretive tools.
@@ -77,6 +85,42 @@ export default function Retreats() {
           </div>
         </div>
       </section>
+
+      {images.length > 0 && (
+        <section className="gallery-section" style={{ background: 'rgba(5,5,20,0.35)' }}>
+          <div className="container">
+            <p className="section-label" style={{ textAlign: 'center' }}>Retreat</p>
+            <h2 className="section-title">Moments from <span className="gold-text">Rishikesh</span></h2>
+            <div className="gallery-grid" style={{ marginTop: 48 }}>
+              {images.map(img => (
+                <div
+                  key={img.id}
+                  className="gallery-card"
+                  onClick={() => setLightbox(img)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={e => e.key === 'Enter' && setLightbox(img)}
+                >
+                  <img src={img.url} alt={img.title} className="gallery-img" loading="lazy" />
+                  <div className="gallery-card-overlay">
+                    <span className="gallery-card-title">{img.title}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {lightbox && (
+        <div className="gallery-lightbox" onClick={() => setLightbox(null)}>
+          <div className="gallery-lightbox-inner" onClick={e => e.stopPropagation()}>
+            <button className="gallery-lightbox-close" onClick={() => setLightbox(null)}>✕</button>
+            <img src={lightbox.url} alt={lightbox.title} className="gallery-lightbox-img" />
+            <p className="gallery-lightbox-title">{lightbox.title}</p>
+          </div>
+        </div>
+      )}
     </>
   )
 }

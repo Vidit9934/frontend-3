@@ -323,7 +323,7 @@ export default function Home() {
       </section>
 
       {/* ───── WHAT I DO ───── */}
-      <section className="what-i-do">
+      <section className="what-i-do" style={{ background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <div className="section-divider" />
           <span className="section-label">Services</span>
@@ -379,7 +379,7 @@ export default function Home() {
       </section>
 
       {/* ───── CTA ───── */}
-      <section className="cta-section">
+      <section className="cta-section" style={{ background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <div className="cta-block">
             <div className="cta-glow" />

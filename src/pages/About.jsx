@@ -6,8 +6,8 @@ import './ServicePage.css'
 const sessionHelps = [
   { icon: <TbNumbers />, num: '01', text: 'Make aligned career and business decisions' },
   { icon: <TbWorld />,   num: '02', text: 'Understand relationship dynamics and compatibility' },
-  { icon: <TbEye />,     num: '03', text: 'Find purpose, direction, and clarity through numbers' },
-  { icon: <TbGeometry />,num: '04', text: 'Balance the energy in their home, office, or restaurant' },
+  { icon: <TbEye />,     num: '03', text: 'Find purpose, direction and clarity through numbers' },
+  { icon: <TbGeometry />,num: '04', text: 'Balance the energy in their home, office or restaurant' },
   { icon: <TbYoga />,    num: '05', text: 'Release emotional heaviness through breath and mantra meditation' },
 ]
 
@@ -28,7 +28,7 @@ export default function About() {
       </section>
 
       {/* About Sharan */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>About</p>
@@ -40,14 +40,14 @@ export default function About() {
                 Sharan is a holistic guide and certified practitioner of Chinese and Vedic numerology
                 as well as Egyptian and Yogic sciences of frequency and healing. He helps individuals
                 and business owners navigate critical life decisions with clarity and confidence using
-                ancient wisdom, practical insights, and precision-based tools.
+                ancient wisdom, practical insights and precision-based tools.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Having trained under Master Teachers across India and beyond, Sharan integrates his
+                Having trained under Master Teachers across India and beyond. Sharan integrates his
                 life experience, research mindset, military discipline and energetic mastery to help
                 people restore balance, find purpose and unlock real-world results. From business
-                owners, homeowners, and high-performing professionals to parents seeking guidance for
-                their children, Sharan's sessions are known to bring peace, direction and inner alignment.
+                owners, homeowners and high-performing professionals to parents seeking guidance for
+                their children. Sharan's sessions are known to bring peace, direction and inner alignment.
               </p>
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function About() {
       </section>
 
       {/* From Warrior to Analyst */}
-      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>His Journey</p>
@@ -70,9 +70,9 @@ export default function About() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I've led men, navigated high-stakes assignments, trained in intelligence, terrain,
-                team efforts, timing, and strategy. Experienced over a decade-long career in personal
+                team efforts, timing and strategy. Experienced over a decade-long career in personal
                 protection as well as a prudent master in close-combat readiness, a big brother to all.
-                However, years of intensity, sacrifice, and discipline led to a pivotal question:{' '}
+                However, years of intensity, sacrifice and discipline led to a pivotal question:{' '}
                 <em style={{ color: 'var(--accent-gold)' }}>What now?</em>
               </p>
 
@@ -97,13 +97,13 @@ export default function About() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I immersed myself in advanced Yogic studies across India, certified in Yoga Teacher
-                Training (TTC 500), Vedic breathwork, Ayurveda, and Siddha practices. I trained in
+                Training (TTC 500), Vedic breathwork, Ayurveda and Siddha practices. I trained in
                 BioGeometry under its founder's lineage and obtained Advanced certification.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I also studied Advanced Vedic and Chinese Numerology, developing my own powerful
                 LifeChoice Analytics™ system — a Human Profiling tool to decode an individual's life
-                blueprint for greater insight, success, harmony, and clarity.
+                blueprint for greater insight, success, harmony and clarity.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 With the deep understanding and teachings I received, I felt the need to help others
@@ -111,7 +111,7 @@ export default function About() {
                 anyone can relate to and get relief from.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
-                Today, I blend my intuition with analysis, mysticism with strategy, and ancient
+                Today, I blend my intuition with analysis, mysticism with strategy and ancient
                 sciences with grounded results.
               </p>
             </div>
@@ -120,7 +120,7 @@ export default function About() {
       </section>
 
       {/* How Sessions Help */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <h2 className="section-title">How Sessions <span className="gold-text">Help</span></h2>
           <p className="section-subtitle">Practical guidance across every area of life</p>
@@ -148,7 +148,7 @@ export default function About() {
       </section>
 
       {/* Closing quote */}
-      <section style={{ padding: '80px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '80px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
             <p style={{ fontStyle: 'italic', color: 'var(--accent-gold)', fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', lineHeight: 1.8, marginBottom: 24 }}>
@@ -164,7 +164,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="home-cta" style={{ position: 'relative', zIndex: 1 }}>
+      <section className="home-cta" style={{ position: 'relative', zIndex: 1, background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <div className="cta-box">
             <h2>Ready to Begin Your <span className="gradient-text">Journey</span>?</h2>

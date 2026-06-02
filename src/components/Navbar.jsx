@@ -15,7 +15,6 @@ const navLinks = [
   { path: '/about', label: 'About' },
   { path: '/books', label: 'Books' },
   { path: '/gallery', label: 'Gallery' },
-  { path: '/fees', label: 'Fees' },
 ]
 
 export default function Navbar() {

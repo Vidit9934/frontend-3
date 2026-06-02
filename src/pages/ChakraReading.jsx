@@ -20,9 +20,6 @@ export default function ChakraReading() {
     <>
       <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg4.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
-          <div className="hero-icon-wrap">
-            <TbEye />
-          </div>
           <h1 className="fade-in">
             Chakra <span className="gradient-text">Reading</span>
           </h1>
@@ -33,7 +30,7 @@ export default function ChakraReading() {
       </section>
 
       {/* Intro */}
-      <section style={{ padding: '100px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Chakra Reading</p>
@@ -63,7 +60,7 @@ export default function ChakraReading() {
       </section>
 
       {/* What You'll Experience */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <h2 className="section-title">What You'll <span className="gradient-text">Experience</span></h2>
           <p className="section-subtitle">A structured, deeply personal journey through your energy body</p>
@@ -91,7 +88,7 @@ export default function ChakraReading() {
       </section>
 
       {/* Background */}
-      <section style={{ padding: '80px 0', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '80px 0', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
@@ -112,7 +109,7 @@ export default function ChakraReading() {
       </section>
 
       {/* Clients Leave With */}
-      <section style={{ padding: '100px 0' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
         <div className="container">
           <h2 className="section-title">Clients Leave <span className="gold-text">With</span></h2>
           <p className="section-subtitle">Tangible shifts that stay with you long after the session</p>
@@ -140,7 +137,7 @@ export default function ChakraReading() {
       </section>
 
       {/* Closing */}
-      <section style={{ padding: '60px 0 80px', background: 'var(--bg-secondary)' }}>
+      <section style={{ padding: '60px 0 80px', background: 'rgba(8,8,24,0.84)' }}>
         <div className="container">
           <div className="intro-content">
             <p style={{ fontStyle: 'italic', color: 'var(--accent-gold)', fontSize: '1.15rem', marginBottom: 28, lineHeight: 1.8 }}>

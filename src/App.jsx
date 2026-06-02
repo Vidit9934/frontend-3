@@ -13,7 +13,6 @@ import Retreats from './pages/Retreats'
 import About from './pages/About'
 import ComingSoon from './pages/ComingSoon'
 import Books from './pages/Books'
-import Fees from './pages/Fees'
 import Admin from './pages/Admin'
 import WizTec from './pages/WizTec'
 import Gallery from './pages/Gallery'
@@ -35,6 +34,7 @@ export default function App() {
   return (
     <>
       <div className="stars-bg" />
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: 'url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.15, pointerEvents: 'none' }} />
       <ScrollToTop />
       <Navbar />
       <main>
@@ -49,7 +49,6 @@ export default function App() {
           <Route path="/books" element={<Books />} />
           <Route path="/books/:bookId" element={<ComingSoon />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/fees" element={<Fees />} />
           <Route path="/wiztec" element={<WizTec />} />
         </Routes>
       </main>

@@ -57,6 +57,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* All sections sit above the global fixed bg layer */
+section {
+  position: relative;
+  z-index: 1;
+}
+
 a {
   text-decoration: none;
   color: inherit;
