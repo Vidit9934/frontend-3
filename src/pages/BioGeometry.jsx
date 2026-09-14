@@ -23,7 +23,7 @@ export default function BioGeometry() {
     <div className="bio-page">
 
       {/* Hero */}
-      <section className="page-hero" style={{ position: 'relative', overflow: 'hidden', backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg5.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section className="page-hero" style={{ position: 'relative', overflow: 'hidden', backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_1920,c_limit/v1781609391/site/backgrounds/bg5.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         {/* Galaxy core behind icon */}
         <div style={{
           position: 'absolute',
@@ -58,7 +58,7 @@ export default function BioGeometry() {
       </section>
 
       {/* Pain points — 3 horizontal cards */}
-      <section style={{ padding: '80px 0 0', background: 'rgba(5,5,20,0.78)' }}>
+      <section style={{ padding: '80px 0 0', background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <h2 className="section-title">Feeling Drained, Unfocused, or <span className="gradient-text">On-Edge</span> at Home or Work?</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginTop: '48px' }}>
@@ -85,7 +85,7 @@ export default function BioGeometry() {
       </section>
 
       {/* Main content */}
-      <section style={{ padding: '80px 0 100px', background: 'rgba(8,8,24,0.84)', marginTop: '80px' }}>
+      <section style={{ padding: '80px 0 100px', background: 'rgba(8,8,24,0.60)', marginTop: '80px' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>BioGeometry</p>
@@ -131,19 +131,6 @@ export default function BioGeometry() {
       </section>
 
       <FAQ items={faqItems} />
-
-      {/* Still Confused? CTA */}
-      <section className="bio-cta-section">
-        <div className="container">
-          <div className="bio-cta-card">
-            <h2>Still <span className="gradient-text">Confused?</span></h2>
-            <p>Reach out and we'll guide you through whether BioGeometry is right for you.</p>
-            <button className="bio-cta-btn" onClick={() => document.querySelector('.contact-fab')?.click()}>
-              Contact Us
-            </button>
-          </div>
-        </div>
-      </section>
 
     </div>
   )

@@ -1,166 +1,127 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { TbBook, TbCalendarEvent, TbGift, TbStar } from 'react-icons/tb'
+import { FaArrowRight } from 'react-icons/fa'
 import './ServicePage.css'
 
-const books = [
-  { id: 1, title: 'The Numbers Say So', subtitle: 'Idealistic Innovator',  cover: '/pics/BOOK 1 copy.jpg' },
-  { id: 2, title: 'The Numbers Say So', subtitle: 'Pragmatic Negotiator',  cover: '/pics/BOOK 2 copy.jpg' },
-  { id: 3, title: 'The Numbers Say So', subtitle: 'Realistic Taskmaster',  cover: '/pics/BOOK 3 copy.jpg' },
-  { id: 4, title: 'The Numbers Say So', subtitle: 'Idealistic Strategist', cover: '/pics/BOOK 4 copy.jpg' },
-  { id: 5, title: 'The Numbers Say So', subtitle: 'Pragmatic Architect',   cover: '/pics/BOOK 5 copy.jpg' },
-  { id: 6, title: 'The Numbers Say So', subtitle: 'Realistic Protector',   cover: '/pics/BOOK 6 copy.jpg' },
-  { id: 7, title: 'The Numbers Say So', subtitle: 'Idealistic Spiritulist', cover: '/pics/BOOK 7 copy.jpg' },
-  { id: 8, title: 'The Numbers Say So', subtitle: 'Pragmatic Commander',   cover: '/pics/BOOK 8 copy.jpg' },
-  { id: 9, title: 'The Numbers Say So', subtitle: 'Realistic Creator',     cover: '/pics/BOOK 9 copy.jpg' },
-]
+function reduceDigits(n) {
+  return String(n).split('').reduce((a, c) => a + Number(c), 0)
+}
 
-const perks = [
-  {
-    icon: <TbCalendarEvent />,
-    label: 'Pre-Launch Delivery',
-    value: '1 October 2026',
-    desc: 'Early birds receive their copies before the official launch — guaranteed delivery ahead of the crowd.',
-  },
-  {
-    icon: <TbStar />,
-    label: 'Early Bird Price',
-    value: 'US $37.75',
-    desc: 'A special pre-order rate exclusively for those who register before the launch date.',
-  },
-  {
-    icon: <TbGift />,
-    label: '100 Free Readings',
-    value: '100 Lucky Numbers',
-    desc: 'One hundred early bird pre-orders will receive a complimentary personal numerology reading with Sharan.',
-  },
-]
+function calcKarmic(dateStr) {
+  // YYYY-MM-DD → strip dashes, sum all digits, reduce until single digit
+  let sum = dateStr.replace(/-/g, '').split('').reduce((a, c) => a + Number(c), 0)
+  while (sum > 9) sum = reduceDigits(sum)
+  return sum
+}
+
+function KarmicCalculator() {
+  const [date, setDate] = useState('')
+  const [karmic, setKarmic] = useState(null)
+  const [error, setError] = useState('')
+
+  const today = new Date().toISOString().split('T')[0]
+
+  const calculate = () => {
+    if (!date) return
+    const chosen = new Date(date)
+    const now = new Date()
+    now.setHours(0, 0, 0, 0)
+    if (chosen > now) {
+      setError('Date of birth cannot be in the future.')
+      setKarmic(null)
+      return
+    }
+    if (chosen.getFullYear() < 1900) {
+      setError('Please enter a valid date of birth after 1900.')
+      setKarmic(null)
+      return
+    }
+    setError('')
+    setKarmic(calcKarmic(date))
+  }
+
+  return (
+    <section style={{ padding: '80px 0 60px', background: 'rgba(5,5,20,0.35)' }}>
+      <div className="container">
+        <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
+          <span className="section-label">Find Your Book</span>
+          <h2 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, marginBottom: 12, marginTop: 8 }}>
+            Discover Your <span className="gradient-text">Karmic Number</span>
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: 36, lineHeight: 1.7 }}>
+            Enter your date of birth — we'll reveal which of Sharan's books was written for you.
+          </p>
+
+          <div className="card" style={{ padding: '40px 36px' }}>
+            <label style={{ display: 'block', fontSize: '0.72rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 12 }}>
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              value={date}
+              max={today}
+              onChange={e => { setDate(e.target.value); setKarmic(null); setError('') }}
+              style={{
+                width: '100%', padding: '14px 18px', borderRadius: 12,
+                border: '1px solid rgba(212,168,83,0.3)', background: 'rgba(212,168,83,0.06)',
+                color: 'var(--text-primary)', fontSize: '1.05rem', outline: 'none',
+                marginBottom: 20, fontFamily: 'var(--font-body)', colorScheme: 'dark',
+              }}
+            />
+            <button
+              onClick={calculate}
+              disabled={!date}
+              style={{
+                width: '100%', padding: '14px 24px', borderRadius: 12, border: 'none',
+                background: date ? 'linear-gradient(135deg, #d4a853, #f0cc73)' : 'rgba(212,168,83,0.2)',
+                color: date ? '#050510' : 'var(--text-secondary)',
+                fontSize: '0.95rem', fontWeight: 700, cursor: date ? 'pointer' : 'not-allowed',
+                letterSpacing: '0.5px', fontFamily: 'var(--font-body)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              }}
+            >
+              Calculate My Karmic Number
+            </button>
+
+            {error && (
+              <p style={{ marginTop: 14, color: '#f87171', fontSize: '0.85rem', lineHeight: 1.5 }}>{error}</p>
+            )}
+
+            {karmic !== null && (
+              <div style={{ marginTop: 32, padding: '32px 24px', borderRadius: 16, background: 'rgba(212,168,83,0.08)', border: '1px solid rgba(212,168,83,0.35)' }}>
+                <p style={{ fontSize: '0.72rem', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--accent-gold)', margin: '0 0 8px' }}>Your Karmic Number Is</p>
+                <p style={{ fontSize: 'clamp(3.5rem, 10vw, 6rem)', fontWeight: 900, color: '#f0cc73', lineHeight: 1, margin: '0 0 16px' }}>{karmic}</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: 28, lineHeight: 1.65 }}>
+                  The universe has a book written just for you. Explore the blueprint of your life path.
+                </p>
+                <Link
+                  to={`/books/${karmic}`}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 10,
+                    padding: '13px 28px', borderRadius: 12,
+                    background: 'linear-gradient(135deg, #d4a853, #f0cc73)',
+                    color: '#050510', fontWeight: 700, fontSize: '0.92rem',
+                    textDecoration: 'none', letterSpacing: '0.4px',
+                  }}
+                >
+                  View Book {karmic} — Your Karmic Book <FaArrowRight />
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function Books() {
   return (
     <>
-      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div className="container hero-content">
-          <h1 className="fade-in">
-            Sharan's <span className="gradient-text">Books</span>
-          </h1>
-          <p className="fade-in fade-in-delay-1">
-            A collection of works on clarity, purpose and the LifeChoice journey.
-          </p>
-        </div>
+      <section style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_1920,c_limit/v1781609501/site/books/cover-banner.jpg")', backgroundSize: 'cover', backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', minHeight: '100vh', width: '100%' }}>
       </section>
 
-      {/* ── Pre-launch announcement ── */}
-      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.35)' }}>
-        <div className="container">
-
-          {/* Header */}
-          <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <span className="section-label">Coming Soon</span>
-            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', fontWeight: 800, marginBottom: 16, marginTop: 8 }}>
-              We're Working on It —<br />
-              <span className="gradient-text">Something Special Is Coming.</span>
-            </h2>
-
-            {/* Launch date card */}
-            <div style={{
-              display: 'inline-flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 6,
-              background: 'rgba(212,168,83,0.08)',
-              border: '1px solid rgba(212,168,83,0.3)',
-              borderRadius: 16,
-              padding: '20px 40px',
-              marginTop: 24,
-            }}>
-              <span style={{ fontSize: '0.75rem', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--accent-gold)', fontWeight: 600 }}>Official Launch</span>
-              <span style={{ fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', fontWeight: 800, color: '#f0cc73', lineHeight: 1.1 }}>20 October 2026</span>
-              <span style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', fontStyle: 'italic' }}>Sharan's 60th Birthday</span>
-            </div>
-          </div>
-
-          {/* Perks grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, marginBottom: 72 }}>
-            {perks.map((p, i) => (
-              <div key={i} className="card" style={{ padding: '32px 28px', textAlign: 'center' }}>
-                <div style={{
-                  width: 52, height: 52, borderRadius: '50%',
-                  background: 'rgba(212,168,83,0.12)',
-                  border: '1px solid rgba(212,168,83,0.3)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  margin: '0 auto 18px',
-                  fontSize: '1.4rem', color: 'var(--accent-gold)',
-                }}>
-                  {p.icon}
-                </div>
-                <p style={{ fontSize: '0.72rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 6 }}>{p.label}</p>
-                <p style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f0cc73', marginBottom: 12 }}>{p.value}</p>
-                <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.7, margin: 0 }}>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── Books grid ── */}
-      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
-        <div className="container">
-          <p className="section-label">Reading List</p>
-          <h2 className="section-title">All <span className="gold-text">9 Books</span></h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-            gap: '32px',
-            marginTop: '56px',
-          }}>
-            {books.map((book, i) => (
-              <Link
-                to={`/books/${book.id}`}
-                key={book.id}
-                className="card fade-in"
-                style={{
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  animationDelay: `${i * 0.07}s`,
-                  padding: 0,
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <div style={{ width: '100%', aspectRatio: '2/3', overflow: 'hidden' }}>
-                  <img
-                    src={book.cover}
-                    alt={`${book.title} — ${book.subtitle}`}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                </div>
-                <div style={{ padding: '20px 22px 24px' }}>
-                  <p style={{ margin: '0 0 4px', fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '1px', textTransform: 'uppercase' }}>
-                    {book.title}
-                  </p>
-                  <h3 style={{ margin: '0 0 14px', fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3 }}>
-                    {book.subtitle}
-                  </h3>
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '4px 14px',
-                    border: '1px solid var(--accent-gold)',
-                    borderRadius: '60px',
-                    color: 'var(--accent-gold)',
-                    fontSize: '0.7rem',
-                    letterSpacing: '2px',
-                    textTransform: 'uppercase',
-                  }}>
-                    Coming Soon
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <KarmicCalculator />
     </>
   )
 }

@@ -17,6 +17,7 @@
     0 0 80px rgba(123, 47, 242, 0.15);
   transition: var(--transition);
   animation: fab-breathe 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes fab-breathe {

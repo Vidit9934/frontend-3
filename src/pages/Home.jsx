@@ -11,34 +11,17 @@ const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute, containerRef }) {
   return (
-    <div className="carousel-slide slide-video">
-      <div className="slide-orb slide-orb--purple" />
-      <div className="slide-orb slide-orb--pink" />
-      <div className="container slide-inner slide-inner--split">
-        <div className="slide-text">
-          <span className="slide-badge">
-            <FaYoutube style={{ color: '#ff4444', fontSize: '1.1rem' }} /> Featured Video
-          </span>
-          <h1 className="slide-title">Watch &amp; <span className="gradient-text">Discover</span></h1>
-          <p className="slide-tagline">
-            Get Peace, Clarity and Direction in Your Health, Relationships, Career and Money Matters.
-          </p>
-          <p className="slide-desc">
-            See how ancient numerology reveals the hidden blueprint of your life —
-            in this exclusive video by Sharan.
-          </p>
-          <a href={YT_WATCH_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
-            Watch on YouTube <FaArrowRight />
-          </a>
-        </div>
-        <div className="slide-video-frame" style={{ position: 'relative' }} ref={containerRef}>
-          <div id={playerId} />
-          {isMuted && onUnmute && (
-            <button className="yt-unmute-btn" onClick={onUnmute} aria-label="Unmute video">
-              🔇 Tap to Unmute
-            </button>
-          )}
-        </div>
+    <div className="carousel-slide slide-video" style={{ position: 'relative' }}>
+      <div className="yt-cover-wrap" ref={containerRef}>
+        <div id={playerId} />
+        {isMuted && onUnmute && (
+          <button className="yt-unmute-btn" onClick={onUnmute} aria-label="Unmute video">
+            🔇 Tap to Unmute
+          </button>
+        )}
+      </div>
+      <div className="yt-slide-tagline">
+        <p>Get Peace, Clarity and Direction in Your Health, Relationships, Career and Money Matters.</p>
       </div>
     </div>
   )
@@ -99,28 +82,28 @@ const SLIDES = 3
 
 const services = [
   {
-    img: '/pics/bg3.png',
+    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609386/site/backgrounds/bg3.png',
     title: 'Numerology',
     desc: 'A Structured method to decode your birthdate revealing career paths, relationships patterns & life purpose.',
     link: '/numerology',
     accent: '#7b2ff2',
   },
   {
-    img: '/pics/image2.png',
+    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609486/site/misc/image2.png',
     title: 'BioGeometry',
     desc: 'An energy-balancing science that uses geometric shapes to harmonize your home or workspace, balance personal energy, reduce stress.',
     link: '/biogeometry',
     accent: '#ec4899',
   },
   {
-    img: '/pics/image3.png',
+    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609489/site/misc/image3.png',
     title: 'Meditation & Breathwork',
     desc: 'Guided practice using classical pranayama and meditation to release stress, reset your nervous system and restore inner calm.',
     link: '/meditation-breathwork',
     accent: '#d4a853',
   },
   {
-    img: '/pics/image.png',
+    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609484/site/misc/image.png',
     title: 'Chakra Reading',
     desc: 'A structured journey through your energy centres to unlock emotional clarity & offer energetic balance.',
     link: '/chakra-reading',
@@ -323,7 +306,7 @@ export default function Home() {
       </section>
 
       {/* ───── WHAT I DO ───── */}
-      <section className="what-i-do" style={{ background: 'rgba(5,5,20,0.78)' }}>
+      <section className="what-i-do" style={{ background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <div className="section-divider" />
           <span className="section-label">Services</span>
@@ -379,7 +362,7 @@ export default function Home() {
       </section>
 
       {/* ───── CTA ───── */}
-      <section className="cta-section" style={{ background: 'rgba(5,5,20,0.78)' }}>
+      <section className="cta-section" style={{ background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <div className="cta-block">
             <div className="cta-glow" />

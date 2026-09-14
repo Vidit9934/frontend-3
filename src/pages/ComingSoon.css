@@ -11,7 +11,7 @@
 .cs-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(130px);
+  filter: blur(50px);
   pointer-events: none;
 }
 

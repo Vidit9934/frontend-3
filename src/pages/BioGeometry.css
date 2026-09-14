@@ -79,7 +79,7 @@
 .twin-card {
   padding: 32px 28px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -106,7 +106,7 @@
   gap: 40px;
   padding: 44px 48px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   max-width: 800px;
@@ -154,7 +154,7 @@
   text-align: center;
   padding: 60px 40px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   max-width: 540px;
@@ -201,6 +201,7 @@
   animation-duration: var(--dur, 30s);
   animation-direction: var(--dir, normal);
   top: 50%; left: 50%;
+  will-change: transform;
 }
 @keyframes ring-spin {
   from { transform: translate(-50%,-50%) rotate(0deg);   }

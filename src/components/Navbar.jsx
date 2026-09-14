@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { HiMenuAlt3, HiX } from 'react-icons/hi'
-import logo from '../assets/logo.png'
-import mainL from '../assets/main-l.png'
 import './Navbar.css'
+
+const logo = 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_300,c_limit/v1781609743/site/brand/logo.png'
+const mainL = 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_300,c_limit/v1781609743/site/brand/main-l.png'
 
 const navLinks = [
   { path: '/', label: 'Home' },
@@ -21,10 +22,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const tickingRef = useRef(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => {
+      if (tickingRef.current) return
+      tickingRef.current = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 50)
+        tickingRef.current = false
+      })
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -43,7 +52,7 @@ export default function Navbar() {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-brand">
-          <img src={logo} alt="My LifeChoices" className="navbar-logo" />
+          <img src={logo} alt="My LifeChoices" className="navbar-logo" fetchPriority="high" />
         </Link>
 
         <button

@@ -19,16 +19,17 @@ export default function About() {
         <div className="container">
           <div className="about-img-wrap">
             <img
-              src="/pics/about sharan picture.jpg"
+              src="https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_900,c_limit/v1781609493/site/about/sharan.jpg"
               alt="Sharan — Master LifeChoice Analyst"
               className="about-portrait"
+              fetchPriority="high"
             />
           </div>
         </div>
       </section>
 
       {/* About Sharan */}
-      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>About</p>
@@ -55,7 +56,7 @@ export default function About() {
       </section>
 
       {/* From Warrior to Analyst */}
-      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.60)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>His Journey</p>
@@ -120,7 +121,7 @@ export default function About() {
       </section>
 
       {/* How Sessions Help */}
-      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.78)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <h2 className="section-title">How Sessions <span className="gold-text">Help</span></h2>
           <p className="section-subtitle">Practical guidance across every area of life</p>
@@ -148,7 +149,7 @@ export default function About() {
       </section>
 
       {/* Closing quote */}
-      <section style={{ padding: '80px 0', background: 'rgba(8,8,24,0.84)' }}>
+      <section style={{ padding: '80px 0', background: 'rgba(8,8,24,0.60)' }}>
         <div className="container">
           <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
             <p style={{ fontStyle: 'italic', color: 'var(--accent-gold)', fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)', lineHeight: 1.8, marginBottom: 24 }}>
@@ -164,7 +165,7 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="home-cta" style={{ position: 'relative', zIndex: 1, background: 'rgba(5,5,20,0.78)' }}>
+      <section className="home-cta" style={{ position: 'relative', zIndex: 1, background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           <div className="cta-box">
             <h2>Ready to Begin Your <span className="gradient-text">Journey</span>?</h2>

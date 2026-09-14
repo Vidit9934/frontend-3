@@ -35,12 +35,15 @@ export default function Admin() {
   const [availability, setAvailability] = useState({})
   const [bookedMap, setBookedMap] = useState({})
   const [bookings, setBookings] = useState([])
+  const [orders, setOrders] = useState([])
   const [loadingAvail, setLoadingAvail] = useState(false)
   const [loadingBookings, setLoadingBookings] = useState(false)
+  const [loadingOrders, setLoadingOrders] = useState(false)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const availCacheRef = useRef({})
   const bookingsFetchedRef = useRef(false)
+  const ordersFetchedRef = useRef(false)
   const galleryFetchedRef = useRef(false)
   const retreatsFetchedRef = useRef(false)
 
@@ -114,6 +117,21 @@ export default function Admin() {
   useEffect(() => {
     if (authed && tab === 'bookings' && !bookingsFetchedRef.current) fetchBookings()
   }, [authed, tab, fetchBookings])
+
+  const fetchOrders = useCallback(async () => {
+    setLoadingOrders(true)
+    try {
+      const snap = await getDocs(query(collection(db, 'bookOrders'), orderBy('createdAt', 'desc')))
+      setOrders(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+      ordersFetchedRef.current = true
+    } finally {
+      setLoadingOrders(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (authed && tab === 'orders' && !ordersFetchedRef.current) fetchOrders()
+  }, [authed, tab, fetchOrders])
 
   const fetchGallery = useCallback(async () => {
     setLoadingGallery(true)
@@ -360,6 +378,13 @@ export default function Admin() {
           {bookings.length > 0 && <span className="bookings-count">{bookings.length}</span>}
         </button>
         <button
+          className={`admin-tab-btn ${tab === 'orders' ? 'active' : ''}`}
+          onClick={() => setTab('orders')}
+        >
+          📚 Book Orders
+          {orders.length > 0 && <span className="bookings-count">{orders.length}</span>}
+        </button>
+        <button
           className={`admin-tab-btn ${tab === 'gallery' ? 'active' : ''}`}
           onClick={() => setTab('gallery')}
         >
@@ -529,6 +554,59 @@ export default function Admin() {
             )}
           </div>
         )}
+        {/* ── BOOK ORDERS TAB ── */}
+        {tab === 'orders' && (
+          <div className="bookings-section">
+            <div className="bookings-header-row">
+              <h3 className="bookings-title">Book Orders ({orders.length})</h3>
+              <button className="week-arrow" onClick={() => { ordersFetchedRef.current = false; fetchOrders() }} disabled={loadingOrders}>
+                {loadingOrders ? 'Refreshing…' : '↻ Refresh'}
+              </button>
+            </div>
+
+            {loadingOrders ? (
+              <p style={{ color: '#b0adc8', textAlign: 'center', padding: '40px 0' }}>Loading orders…</p>
+            ) : orders.length === 0 ? (
+              <div className="empty-bookings">
+                <p>No purchases yet.</p>
+                <span>When someone buys a book, it'll appear here.</span>
+              </div>
+            ) : (
+              <div className="bookings-grid">
+                {orders.map((o) => (
+                  <div key={o.id} className="booking-card">
+                    <div className="booking-card-top">
+                      <span className="booking-name">{o.name || 'Unknown Buyer'}</span>
+                      <span className="booking-service-badge">{o.currency} {(o.amount / 100).toFixed(2)}</span>
+                    </div>
+                    <div className="booking-card-row">
+                      <span>📖 {o.bookTitle}</span>
+                    </div>
+                    <div className="booking-card-row">
+                      <span>📧 {o.email}</span>
+                    </div>
+                    <div className="booking-card-row">
+                      <span>📱 {o.phone}</span>
+                    </div>
+                    <div className="booking-card-row">
+                      <span>🎂 {o.dob}</span>
+                    </div>
+                    <div className="booking-card-row">
+                      <span>💳 {o.paymentId}</span>
+                    </div>
+                    <div className="booking-submitted">
+                      Purchased: {new Date(o.createdAt).toLocaleString('en-GB', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {/* ── GALLERY TAB ── */}
         {tab === 'gallery' && (
           <div className="gallery-admin-section">

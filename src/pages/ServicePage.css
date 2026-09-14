@@ -79,7 +79,7 @@
   text-align: center;
   padding: 40px 24px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -125,7 +125,7 @@
   position: relative;
   padding: 36px 36px 36px 52px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -178,7 +178,7 @@
   text-align: center;
   padding: 40px 28px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -226,7 +226,7 @@
   text-align: center;
   padding: 48px 36px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -320,7 +320,7 @@
   text-align: center;
   padding: 40px 28px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -368,7 +368,7 @@
   gap: 20px;
   padding: 28px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   transition: var(--transition);
@@ -411,7 +411,7 @@
   text-align: center;
   padding: 28px 14px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border-radius: var(--radius-xl);
   transition: var(--transition);
 }
@@ -454,7 +454,7 @@
   gap: 16px;
   padding: 22px 28px;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   transition: var(--transition);
@@ -491,7 +491,7 @@
 .cta-box {
   text-align: center;
   background: var(--gradient-card);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   padding: 80px 60px;

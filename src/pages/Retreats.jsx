@@ -15,7 +15,7 @@ export default function Retreats() {
 
   return (
     <>
-      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section className="page-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.3), rgba(5,5,20,0.3)), url("https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_1920,c_limit/v1781609883/site/backgrounds/rishikesh.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container hero-content">
           <h1 className="fade-in">
             <span className="gradient-text">Reset Your Life</span>
@@ -31,7 +31,7 @@ export default function Retreats() {
         </div>
       </section>
 
-      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.84)' }}>
+      <section style={{ padding: '100px 0', background: 'rgba(8,8,24,0.60)' }}>
         <div className="container">
           <div style={{ maxWidth: 800, margin: '0 auto' }}>
             <p className="section-label" style={{ textAlign: 'left' }}>Retreat</p>
@@ -76,6 +76,21 @@ export default function Retreats() {
                 My aim for everyone participating in this retreat is to leave grounded, clear and
                 equipped with practices and understanding they can carry forward long after returning home.
               </p>
+              <div style={{ marginTop: 32 }}>
+                <p style={{ fontSize: '0.75rem', letterSpacing: '3px', textTransform: 'uppercase', color: 'var(--accent-gold)', fontWeight: 600, marginBottom: 16 }}>Choose Your Accommodation</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 32 }}>
+                  <div className="card" style={{ padding: '28px 24px', textAlign: 'center' }}>
+                    <p style={{ fontSize: '0.72rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 10 }}>Twin Share</p>
+                    <p style={{ fontSize: '2rem', fontWeight: 800, color: '#f0cc73', margin: 0, lineHeight: 1.1 }}>$1,296</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: 6 }}>USD per person</p>
+                  </div>
+                  <div className="card" style={{ padding: '28px 24px', textAlign: 'center', border: '1px solid rgba(212,168,83,0.4)' }}>
+                    <p style={{ fontSize: '0.72rem', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: 10 }}>Private Room</p>
+                    <p style={{ fontSize: '2rem', fontWeight: 800, color: '#f0cc73', margin: 0, lineHeight: 1.1 }}>$1,496</p>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: 6 }}>USD per person</p>
+                  </div>
+                </div>
+              </div>
               <div style={{ marginTop: 12 }}>
                 <a href="/Retreat.pdf" download className="btn-primary" style={{ textDecoration: 'none' }}>
                   <span>Download Brochure</span>

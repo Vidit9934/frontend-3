@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { FaWhatsapp, FaEnvelope, FaInstagram, FaFacebookF, FaYoutube, FaGlobe } from 'react-icons/fa'
-import logo from '../assets/logo.png'
 import './Footer.css'
+
+const logo = 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_300,c_limit/v1781609743/site/brand/logo.png'
 
 export default function Footer() {
   return (
@@ -45,10 +46,10 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} My LifeChoices by Sharan. All rights reserved.</p>
+          <p>&copy; 2026 My LifeChoices by Sharan. All rights reserved. Your order will be processed in accordance with Singapore law.</p>
         </div>
       </div>
-      <img src="/pics/badal.png" alt="" className="footer-badal" aria-hidden="true" />
+      <img src="https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_300,c_limit/v1781609742/site/brand/badal.png" alt="" className="footer-badal" aria-hidden="true" />
     </footer>
   )
 }

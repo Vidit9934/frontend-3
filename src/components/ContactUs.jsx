@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react'
 import { FaWhatsapp, FaTimes, FaCommentDots } from 'react-icons/fa'
+import { WHATSAPP_NUMBER } from '../whatsapp'
+import { useScrollLock } from '../hooks/useScrollLock'
 import './ContactUs.css'
-
-// TODO: Replace with Sharan's actual WhatsApp number (with country code, no + or spaces)
-const WHATSAPP_NUMBER = '6589220656'
 
 export default function ContactUs() {
   const [isOpen, setIsOpen] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', dob: '' })
   const [sent, setSent] = useState(false)
+
+  useScrollLock(isOpen)
 
   useEffect(() => {
     const handler = () => setIsOpen(true)

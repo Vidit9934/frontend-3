@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 import { db } from '../firebase'
+import { useScrollLock } from '../hooks/useScrollLock'
 import './Gallery.css'
 
 export default function Gallery() {
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [lightbox, setLightbox] = useState(null)
+
+  useScrollLock(!!lightbox)
 
   useEffect(() => {
     getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
@@ -16,7 +19,7 @@ export default function Gallery() {
 
   return (
     <>
-      <section className="page-hero gallery-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <section className="page-hero gallery-hero" style={{ backgroundImage: 'linear-gradient(rgba(5,5,20,0.55), rgba(5,5,20,0.55)), url(https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_1920,c_limit/v1781609382/site/backgrounds/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <div className="container">
           <span className="section-label">Visual Journey</span>
           <h1>Gallery</h1>
@@ -24,7 +27,7 @@ export default function Gallery() {
         </div>
       </section>
 
-      <section className="gallery-section" style={{ background: 'rgba(5,5,20,0.78)' }}>
+      <section className="gallery-section" style={{ background: 'rgba(5,5,20,0.50)' }}>
         <div className="container">
           {loading ? (
             <div className="gallery-loading">

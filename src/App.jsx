@@ -1,21 +1,23 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, Suspense, lazy } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BookSession from './components/BookSession'
 import ContactUs from './components/ContactUs'
-import Home from './pages/Home'
-import Numerology from './pages/Numerology'
-import BioGeometry from './pages/BioGeometry'
-import MeditationBreathwork from './pages/MeditationBreathwork'
-import ChakraReading from './pages/ChakraReading'
-import Retreats from './pages/Retreats'
-import About from './pages/About'
-import ComingSoon from './pages/ComingSoon'
-import Books from './pages/Books'
-import Admin from './pages/Admin'
-import WizTec from './pages/WizTec'
-import Gallery from './pages/Gallery'
+
+const Home = lazy(() => import('./pages/Home'))
+const Numerology = lazy(() => import('./pages/Numerology'))
+const BioGeometry = lazy(() => import('./pages/BioGeometry'))
+const MeditationBreathwork = lazy(() => import('./pages/MeditationBreathwork'))
+const ChakraReading = lazy(() => import('./pages/ChakraReading'))
+const Retreats = lazy(() => import('./pages/Retreats'))
+const About = lazy(() => import('./pages/About'))
+const ComingSoon = lazy(() => import('./pages/ComingSoon'))
+const Books = lazy(() => import('./pages/Books'))
+const BookDetail = lazy(() => import('./pages/BookDetail'))
+const Admin = lazy(() => import('./pages/Admin'))
+const WizTec = lazy(() => import('./pages/WizTec'))
+const Gallery = lazy(() => import('./pages/Gallery'))
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -29,28 +31,36 @@ export default function App() {
   const { pathname } = useLocation()
   const isAdmin = pathname === '/secretadmin'
 
-  if (isAdmin) return <Admin />
+  if (isAdmin) {
+    return (
+      <Suspense fallback={null}>
+        <Admin />
+      </Suspense>
+    )
+  }
 
   return (
     <>
       <div className="stars-bg" />
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: 'url(/pics/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.15, pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, backgroundImage: 'url(https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_1920,c_limit/v1781609382/site/backgrounds/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.30, pointerEvents: 'none' }} />
       <ScrollToTop />
       <Navbar />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/numerology" element={<Numerology />} />
-          <Route path="/biogeometry" element={<BioGeometry />} />
-          <Route path="/meditation-breathwork" element={<MeditationBreathwork />} />
-          <Route path="/chakra-reading" element={<ChakraReading />} />
-          <Route path="/retreats" element={<Retreats />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/books/:bookId" element={<ComingSoon />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/wiztec" element={<WizTec />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/numerology" element={<Numerology />} />
+            <Route path="/biogeometry" element={<BioGeometry />} />
+            <Route path="/meditation-breathwork" element={<MeditationBreathwork />} />
+            <Route path="/chakra-reading" element={<ChakraReading />} />
+            <Route path="/retreats" element={<Retreats />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/books/:bookId" element={<BookDetail />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/wiztec" element={<WizTec />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
       <ContactUs />
