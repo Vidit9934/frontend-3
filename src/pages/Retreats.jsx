@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { collection, getDocs, query, orderBy } from 'firebase/firestore'
-import { db } from '../firebase'
+import { api } from '../lib/api'
 import './ServicePage.css'
 import './Gallery.css'
 
@@ -9,8 +8,9 @@ export default function Retreats() {
   const [lightbox, setLightbox] = useState(null)
 
   useEffect(() => {
-    getDocs(query(collection(db, 'gallery'), orderBy('createdAt', 'desc')))
-      .then(snap => setImages(snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(d => d.type === 'retreat')))
+    api.get('/gallery?type=retreat', { auth: false })
+      .then(({ items }) => setImages(items))
+      .catch(() => {})
   }, [])
 
   return (
@@ -54,7 +54,7 @@ export default function Retreats() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 Since then, my study has gone far deeper and more disciplined. I immersed myself in
-                classical yoga and breathwork and practice numerology and bio geometry at an advanced
+                classical yoga and breathwork and practice numerology at an advanced
                 level. These disciplines were not studied in isolation but tested through lived
                 practice and integration.
               </p>

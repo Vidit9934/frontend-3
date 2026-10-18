@@ -9,14 +9,18 @@ const YT_WATCH_URL = `https://youtu.be/${YT_VIDEO_ID}`
 
 // ── Slide components (defined outside to avoid re-mounting on every render) ──
 
-function SlideVideo({ playerId = 'yt-player', isMuted = true, onUnmute, containerRef }) {
+function SlideVideo({ playerId = 'yt-player', isMuted = true, onToggleMute, containerRef }) {
   return (
     <div className="carousel-slide slide-video" style={{ position: 'relative' }}>
       <div className="yt-cover-wrap" ref={containerRef}>
         <div id={playerId} />
-        {isMuted && onUnmute && (
-          <button className="yt-unmute-btn" onClick={onUnmute} aria-label="Unmute video">
-            🔇 Tap to Unmute
+        {onToggleMute && (
+          <button
+            className="yt-mute-toggle-btn"
+            onClick={onToggleMute}
+            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+          >
+            {isMuted ? '🔇' : '🔊'}
           </button>
         )}
       </div>
@@ -88,13 +92,14 @@ const services = [
     link: '/numerology',
     accent: '#7b2ff2',
   },
-  {
-    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609486/site/misc/image2.png',
-    title: 'BioGeometry',
-    desc: 'An energy-balancing science that uses geometric shapes to harmonize your home or workspace, balance personal energy, reduce stress.',
-    link: '/biogeometry',
-    accent: '#ec4899',
-  },
+  // TODO: BioGeometry temporarily removed, re-enable when ready
+  // {
+  //   img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609486/site/misc/image2.png',
+  //   title: 'BioGeometry',
+  //   desc: 'An energy-balancing science that uses geometric shapes to harmonize your home or workspace, balance personal energy, reduce stress.',
+  //   link: '/biogeometry',
+  //   accent: '#ec4899',
+  // },
   {
     img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_400,c_limit/v1781609489/site/misc/image3.png',
     title: 'Meditation & Breathwork',
@@ -108,6 +113,13 @@ const services = [
     desc: 'A structured journey through your energy centres to unlock emotional clarity & offer energetic balance.',
     link: '/chakra-reading',
     accent: '#06b6d4',
+  },
+  {
+    img: 'https://res.cloudinary.com/dbb5nj0ht/image/upload/f_auto,q_auto,w_500,c_limit/v1781609548/site/books/book-1.jpg',
+    title: 'Books',
+    desc: 'Discover written wisdom — numerology insights and life guidance distilled into pages you can return to anytime.',
+    link: '/books',
+    accent: '#ec4899',
   },
 ]
 
@@ -170,35 +182,79 @@ export default function Home() {
     return () => clearInterval(timerRef.current)
   }, [])
 
+  // Creates (or re-creates) the YT player. `muteFlag` false = attempt unmuted playback —
+  // only succeeds if invoked from a real user gesture (see toggleMute) or if the
+  // browser's autoplay policy happens to allow it; onReady always syncs isMuted to
+  // whatever the player actually ended up doing, since browsers may force-mute regardless.
+  // `tryUnmuteOnReady` = attempt event.target.unMute() right after ready — used only for
+  // the initial page-load mount, where we must request mute:1 (browsers refuse to
+  // autoplay at all, not just force-mute, if autoplay is requested unmuted with no prior
+  // user gesture) but still want sound if the browser's per-site engagement heuristics
+  // happen to allow programmatic unmute anyway.
+  const createPlayer = (muteFlag, startAt = 0, tryUnmuteOnReady = false) => {
+    ytPlayerRef.current = new window.YT.Player('yt-player', {
+      videoId: YT_VIDEO_ID,
+      width: '100%',
+      height: '100%',
+      playerVars: {
+        autoplay: 1,
+        mute: muteFlag ? 1 : 0,
+        controls: 1,
+        modestbranding: 1,
+        rel: 0,
+        playsinline: 1,
+        ...(startAt > 0 ? { start: Math.floor(startAt) } : {}),
+      },
+      events: {
+        onReady: (e) => {
+          if (tryUnmuteOnReady) { try { e.target.unMute() } catch { /* engagement heuristics denied it — stays muted */ } }
+          setIsMuted(e.target.isMuted())
+        },
+        onStateChange: (e) => {
+          if (e.data === 1) { // PLAYING
+            videoPlayingRef.current = true
+            clearInterval(timerRef.current)
+          } else if (e.data === 2 || e.data === 0) { // PAUSED or ENDED only
+            videoPlayingRef.current = false
+            startTimerRef.current?.()
+          }
+          // BUFFERING (3) — keep timer paused, do nothing
+        },
+      },
+    })
+  }
+
+  // Muted → unmuted: player.unMute() via postMessage on an already-created player is
+  // blocked by browser autoplay policy — destroying and recreating it *inside* the
+  // click handler keeps it tied to the user gesture, which browsers do allow.
+  const unmuteViaRecreate = () => {
+    const t = ytPlayerRef.current?.getCurrentTime?.() || 0
+    try { ytPlayerRef.current?.destroy?.() } catch (e) {}
+    if (ytContainerRef.current) {
+      const div = document.createElement('div')
+      div.id = 'yt-player'
+      ytContainerRef.current.insertBefore(div, ytContainerRef.current.firstChild)
+    }
+    createPlayer(false, t)
+  }
+
+  const toggleMute = () => {
+    if (typeof ytPlayerRef.current?.getCurrentTime !== 'function') return // player not ready yet
+    if (isMuted) {
+      unmuteViaRecreate()
+      setIsMuted(false)
+    } else {
+      ytPlayerRef.current.mute() // muting has no gesture restriction, no recreate needed
+      setIsMuted(true)
+    }
+  }
+
   // YouTube IFrame API — pause auto-slide while video plays, resume on pause/end
   useEffect(() => {
-    const setupPlayer = () => {
-      ytPlayerRef.current = new window.YT.Player('yt-player', {
-        videoId: YT_VIDEO_ID,
-        width: '100%',
-        height: '100%',
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          controls: 1,
-          modestbranding: 1,
-          rel: 0,
-          playsinline: 1,
-        },
-        events: {
-          onStateChange: (e) => {
-            if (e.data === 1) { // PLAYING
-              videoPlayingRef.current = true
-              clearInterval(timerRef.current)
-            } else if (e.data === 2 || e.data === 0) { // PAUSED or ENDED only
-              videoPlayingRef.current = false
-              startTimerRef.current?.()
-            }
-            // BUFFERING (3) — keep timer paused, do nothing
-          },
-        },
-      })
-    }
+    // Must request mute:1 here — browsers refuse to autoplay at all (not just force-mute)
+    // if autoplay is requested unmuted with no prior user gesture. Start muted so playback
+    // reliably begins, then opportunistically try to unmute right after.
+    const setupPlayer = () => createPlayer(true, 0, true)
 
     if (window.YT && window.YT.Player) {
       setupPlayer()
@@ -257,35 +313,7 @@ export default function Home() {
           <SlideVideo
             isMuted={isMuted}
             containerRef={ytContainerRef}
-            onUnmute={() => {
-              // player.unMute() via postMessage is blocked cross-origin — destroy & recreate instead
-              const t = ytPlayerRef.current?.getCurrentTime?.() || 0
-              try { ytPlayerRef.current?.destroy?.() } catch(e) {}
-              // Re-insert target div (YT destroy() removes it)
-              if (ytContainerRef.current) {
-                const div = document.createElement('div')
-                div.id = 'yt-player'
-                ytContainerRef.current.insertBefore(div, ytContainerRef.current.firstChild)
-              }
-              // New player created from user-gesture context → browser allows audio
-              ytPlayerRef.current = new window.YT.Player('yt-player', {
-                videoId: YT_VIDEO_ID,
-                width: '100%',
-                height: '100%',
-                playerVars: {
-                  autoplay: 1, mute: 0, controls: 1,
-                  modestbranding: 1, rel: 0, playsinline: 1,
-                  ...(Math.floor(t) > 0 ? { start: Math.floor(t) } : {}),
-                },
-                events: {
-                  onStateChange: (e) => {
-                    if (e.data === 1) { videoPlayingRef.current = true; clearInterval(timerRef.current) }
-                    else if (e.data === 2 || e.data === 0) { videoPlayingRef.current = false; startTimerRef.current?.() }
-                  },
-                },
-              })
-              setIsMuted(false)
-            }}
+            onToggleMute={toggleMute}
           /> {/* real — position 1 */}
           <SlideNumerology /> {/* real  — position 2 */}
           <SlideBook />       {/* real  — position 3 */}
@@ -370,8 +398,8 @@ export default function Home() {
             <h2>Ready to Discover <span className="gradient-text">Your Path</span>?</h2>
             <p>Book a session and begin your journey toward clarity, purpose and inner peace.</p>
             <div className="cta-actions">
-              <Link to="/retreats" className="btn-gold">
-                Explore the Retreat <FaArrowRight />
+              <Link to="/books" className="btn-gold">
+                Explore the Books <FaArrowRight />
               </Link>
               <Link to="/numerology" className="btn-outline">
                 View Services

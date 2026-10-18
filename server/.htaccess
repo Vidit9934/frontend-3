@@ -1,3 +1,9 @@
 <Files "sent-birthdays.json">
   Require all denied
 </Files>
+<Files "sent-followups.json">
+  Require all denied
+</Files>
+<Files "sent-whatsapp.json">
+  Require all denied
+</Files>

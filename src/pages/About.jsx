@@ -98,8 +98,7 @@ export default function About() {
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I immersed myself in advanced Yogic studies across India, certified in Yoga Teacher
-                Training (TTC 500), Vedic breathwork, Ayurveda and Siddha practices. I trained in
-                BioGeometry under its founder's lineage and obtained Advanced certification.
+                Training (TTC 500), Vedic breathwork, Ayurveda and Siddha practices.
               </p>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontSize: '1.05rem', margin: 0 }}>
                 I also studied Advanced Vedic and Chinese Numerology, developing my own powerful
@@ -170,8 +169,8 @@ export default function About() {
           <div className="cta-box">
             <h2>Ready to Begin Your <span className="gradient-text">Journey</span>?</h2>
             <p>Take the first step toward clarity, purpose and inner peace.</p>
-            <Link to="/retreats" className="btn-primary">
-              <span>Explore the Retreat</span> <FaArrowRight />
+            <Link to="/numerology" className="btn-primary">
+              <span>Explore Numerology</span> <FaArrowRight />
             </Link>
           </div>
         </div>

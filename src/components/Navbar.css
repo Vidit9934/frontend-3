@@ -14,9 +14,9 @@
 }
 
 .l-decoration-container {
-  max-width: 1280px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 40px 0 24px;
+  padding: 0 28px 0 12px;
   display: flex;
   justify-content: flex-start;
 }
@@ -71,9 +71,9 @@
 }
 
 .navbar-container {
-  max-width: 1280px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 28px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -95,9 +95,9 @@
 }
 
 .navbar-links li a {
-  padding: 10px 16px;
+  padding: 10px 10px;
   border-radius: 10px;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 400;
   color: var(--text-secondary);
   transition: var(--transition);
@@ -215,7 +215,7 @@
   z-index: 10000;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .navbar-container {
     padding: 0 20px;
   }
@@ -223,6 +223,8 @@
   .navbar-toggle {
     display: flex;
     align-items: center;
+    order: -1; /* hamburger first (far left), then the logo */
+    margin-right: 12px;
   }
 
   .navbar-links {
@@ -272,5 +274,79 @@
     font-size: 1rem;
     text-align: center;
     padding: 10px 16px;
+  }
+}
+
+/* Profile + cart icons (top right) */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 12px;
+  z-index: 101;
+}
+
+.nav-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 1.35rem;
+  transition: var(--transition-fast);
+}
+
+.nav-icon:hover,
+.nav-icon.active {
+  color: var(--text-primary);
+  background: rgba(123, 47, 242, 0.14);
+}
+
+.nav-badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--gradient-accent);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.nav-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  border: 2px solid var(--bg-primary);
+}
+
+@media (max-width: 1023px) {
+  /* hamburger | brand | icons (pushed right) */
+  .navbar-actions {
+    margin-left: auto;
+  }
+}
+
+/* Laptop widths: keep all links on one line next to the icons */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .navbar-container {
+    padding: 0 20px;
+  }
+
+  .navbar-links li a {
+    font-size: 0.8rem;
+    padding: 10px 7px;
   }
 }

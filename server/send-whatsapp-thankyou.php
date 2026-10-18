@@ -14,14 +14,32 @@
  * number to the customer. Free for the first 1,000 business-initiated
  * conversations/month. Requires one-time setup in Meta's WhatsApp Business
  * Platform: a verified sending number (Phone Number ID), a permanent
- * access token, and an approved message template with either three body
- * variables (customer name, book title, download link as plain text) or
- * two body variables plus a dynamic URL button (download link as the
- * button's variable) — whichever shape gets approved in Meta Business
- * Manager. This script currently sends it as a third body parameter, in
- * $payload below; switch that block to a 'button' component instead if
- * the approved template uses a URL button. It is deliberately plain PHP +
- * cURL — no Composer, no dependencies, so it runs on stock shared hosting.
+ * access token, and an approved message template with exactly two body
+ * variables — {{1}} = customer name, {{2}} = download link — submitted
+ * with this exact body text:
+ *
+ *   🙏 Namaste {{1}},
+ *
+ *   Welcome to the world of NumberSaysSo!
+ *
+ *   You didn't just buy a book — you picked up your Cosmic Blueprint. I'm
+ *   Sharan Ji Baba, and this one carries the Chronicle of Suryaloka
+ *   underneath it too — the story behind your numbers.
+ *
+ *   Here's your copy 👇 (one-time link, save it somewhere safe):
+ *   {{2}}
+ *
+ *   Take your time with it. Foreknowledge is power 🙏
+ *
+ *   Whenever you're curious to go deeper — a personal reading maps your
+ *   own 9-year cycles — I'm just a message away.
+ *
+ *   Keep your vibration high ✨
+ *   — Sharan Ji Baba
+ *   www.my-lifechoices.com
+ *
+ * It is deliberately plain PHP + cURL — no Composer, no dependencies, so
+ * it runs on stock shared hosting.
  *
  * IMPORTANT: do not commit your real secret/keys below to a public repo.
  * Fill them in only on the copy you upload to your server.
@@ -71,13 +89,12 @@ if (!is_array($body)) {
 
 $phone = trim($body['phone'] ?? '');
 $name = trim($body['name'] ?? '');
-$bookTitle = trim($body['bookTitle'] ?? '');
 $paymentId = trim($body['paymentId'] ?? '');
 $pdfLink = trim($body['pdfLink'] ?? '');
 
 if (
-    !preg_match('/^\+[1-9]\d{7,14}$/', $phone)
-    || $name === '' || $bookTitle === '' || $paymentId === ''
+    !preg_match('/^\+?[1-9]\d{7,14}$/', $phone)
+    || $name === '' || $paymentId === ''
     || !filter_var($pdfLink, FILTER_VALIDATE_URL)
     || !preg_match('#^https://#i', $pdfLink)
 ) {
@@ -134,7 +151,6 @@ $payload = json_encode([
                 'type' => 'body',
                 'parameters' => [
                     ['type' => 'text', 'text' => $name],
-                    ['type' => 'text', 'text' => $bookTitle],
                     ['type' => 'text', 'text' => $pdfLink],
                 ],
             ],
